@@ -59,10 +59,10 @@ The app is avaiable on `http://<machine-ip-address>:32400`. Point the multimedia
 [qBittorrent](https://github.com/qbittorrent/docker-qbittorrent-nox) is a bittorrent client. I set it up to download multimedia files directly to the Plex library.
 
 ## Installation
-1. Edit the `.env` TODO: _add link to the file_ file: 
+1. Edit the `.env` from the `qbittorrent` directory: 
     - Set `QBT_DOWNLOADS_PATH` with your preferred location for the downloaded files. `/mnt/ssd/plex` in my case.
 
-2. Set up using the following docker-compose file: TODO
+2. Set up using the docker-compose file:
 ```
 docker compose up -d
 ```
