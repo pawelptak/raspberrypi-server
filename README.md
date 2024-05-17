@@ -6,6 +6,7 @@ Self hosting various services on Raspberry Pi 5
 - [Plex](#plex)
 - [Grafana](#grafana)
 - [qBittorrent](#qbittorrent)
+- [Nextcloud](#nextcloud)
 
 # Prerequisites
 - [Docker](https://docs.docker.com/get-docker/)
@@ -72,4 +73,24 @@ The app is avaiable on `http://<machine-ip-address>:8081`
     - Run `docker logs qbittorrent-nox` to find the randomly generated password for the `admin` user.
     - Log in to the app using the login `admin` and the password from the logs. You can change the password in the app settings.
 
-# TODO: Nextcloud
+# Nextcloud
+[Nextcloud](https://github.com/nextcloud/server) is a file hosting solution.
+
+## Installation
+1. Edit the `.env` from the `nextcloud` directory: 
+    - Set `NEXTCLOUD_PATH` with your preferred location for storing your files. `/mnt/ssd/nextcloud` in my case.
+    - Set `POSTGRES_PASSWORD` to something randomly generated.
+
+2. Set up using the docker-compose file:
+```
+docker compose up -d
+```
+The app is avaiable on `http://<machine-ip-address>:8080`
+
+3. Create your account and set up the database connection:
+    - In the web interface create your account by filling out the username and password fields with your preferred values.
+    - Under `Configure the database` select `PostgreSQL` and fill out the fields below:
+        - Database user: `postgres`.
+        - Database password: the one from the `.env` file.
+        - Database name: `postgres`
+        - Database host: `postgres`
