@@ -15,8 +15,8 @@ Self hosting various services on Raspberry Pi 5
 # Immich
 [Immich](https://github.com/immich-app/immich) is a photo and video management solution.
 ## Installation
-1. Edit the `.env` TODO: _add link to the file_ file:
-    - Set `UPLOAD_LOCATION` with your preferred location for storing files. `/mnt/ssd/` in my case.
+1. Edit the `.env` file:
+    - Set `UPLOAD_LOCATION` with your preferred location for storing files. `/mnt/ssd/immich` in my case.
     - Change `DB_PASSWORD` to something randomly generated.
   
 2. Set up using the following docker-compose file: TODO
