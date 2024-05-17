@@ -12,6 +12,7 @@ services:
       - nextcloud-net
     depends_on:
       - postgres
+    restart: always
 
   postgres:
     image: postgres
@@ -22,6 +23,7 @@ services:
       - ./db:/var/lib/postgresql/data
     networks:
       - nextcloud-net
+    restart: always
 
 networks:
   nextcloud-net:
