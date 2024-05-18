@@ -21,26 +21,26 @@ Self hosting various services on Raspberry Pi 5
     - Change `DB_PASSWORD` to something randomly generated.
   
 2. Set up using the docker-compose file:
-```
-docker compose up -d
-```
+    ```
+    docker compose up -d
+    ```
 
-The app is avaiable on `http://<machine-ip-address>:2283`
+    The app is avaiable on `http://<machine-ip-address>:2283`
 
 # Grafana
 [Grafana](https://github.com/grafana/grafana) is a data visualization app. Used to monitor various metrics of the RaspberryPi.
 
 ## Installation
 1. Set up a [prometheus](https://prometheus.io/) database with [Node exporter](https://github.com/prometheus/node_exporter) for OS metrics. Run the following docker-compose file from the `prometheus` directory:
-```
-docker compose up -d
-```
+    ```
+    docker compose up -d
+    ```
 
 2. Run the Grafana docker container
-```
-docker run -d -p 3000:3000 --name=grafana grafana/grafana-enterprise
-```
-The app is avaiable on `http://<machine-ip-address>:3000`
+    ```
+    docker run -d -p 3000:3000 --name=grafana grafana/grafana-enterprise
+    ```
+    The app is avaiable on `http://<machine-ip-address>:3000`
 
 3. Connect the prometheus database to Grafana:
     - In the Grafana web interface go to `Connections` and add a new one with the address `http://<machine-ip-address>:9090`.
@@ -54,7 +54,7 @@ The app is avaiable on `http://<machine-ip-address>:3000`
 ## Installation
 Install using snap: https://snapcraft.io/install/plexmediaserver/raspbian
 
-The app is avaiable on `http://<machine-ip-address>:32400`. Point the multimedia location using the web interface.
+The app is available on `http://<machine-ip-address>:32400`. Point the multimedia location using the web interface.
 
 # qBittorrent
 [qBittorrent](https://github.com/qbittorrent/docker-qbittorrent-nox) is a bittorrent client. I set it up to download multimedia files directly to the Plex library.
@@ -64,10 +64,10 @@ The app is avaiable on `http://<machine-ip-address>:32400`. Point the multimedia
     - Set `QBT_DOWNLOADS_PATH` with your preferred location for the downloaded files. `/mnt/ssd/plex` in my case.
 
 2. Set up using the docker-compose file:
-```
-docker compose up -d
-```
-The app is avaiable on `http://<machine-ip-address>:8081`
+    ```
+    docker compose up -d
+    ```
+    The app is avaiable on `http://<machine-ip-address>:8081`
 
 3. Get the web interface login credentials:
     - Run `docker logs qbittorrent-nox` to find the randomly generated password for the `admin` user.
@@ -82,10 +82,10 @@ The app is avaiable on `http://<machine-ip-address>:8081`
     - Set `POSTGRES_PASSWORD` to something randomly generated.
 
 2. Set up using the docker-compose file:
-```
-docker compose up -d
-```
-The app is avaiable on `http://<machine-ip-address>:8080`
+    ```
+    docker compose up -d
+    ```
+    The app is avaiable on `http://<machine-ip-address>:8080`
 
 3. Create your account and set up the database connection:
     - In the web interface create your account by filling out the username and password fields with your preferred values.
@@ -94,3 +94,28 @@ The app is avaiable on `http://<machine-ip-address>:8080`
         - Database password: the one from the `.env` file.
         - Database name: `postgres`
         - Database host: `postgres`
+
+# Remote access from outside local network
+To be able to use all the services remotely [PiVPN](https://www.pivpn.io/) can be used.
+
+## Installation
+1. Use the command:
+    ```
+    curl -L https://install.pivpn.io | bash
+    ```
+    and an installation wizard will show up.
+
+2. When being asked whether to use Wireguard or OpenVPN I chose the latter because Wireguard did not work for me.
+3. When asked whether the devices will connect via my public IP or a custom DNS **I chose the first option even though I have a custom domain.** The second option did not work for me. Regardless, the custom DNS will be configured later on.
+4. After the installation has finished add a new client by typing the command: `pivpn add`. Then choose a name for the client, leave the certificate expiry date as it is, and set a password. A `.ovpn` file will be created in `/home/<username>/ovpns`.
+5. For the custom DNS to work open the output `.ovpn` file and replace the IP address in the line `remote <IP address> 1194` with your custom DNS.
+6. To make all connections that are not destined to the Raspberry Pi not go through the VPN add the following lines after the line `verb 3`:
+    ```
+    route-nopull
+    route 192.168.1.0 255.255.255.0 vpn_gateway
+    ```
+    (replace `192.168.1.0` with the address of your network if it differs)
+
+    Otherwise, all connections from the client device will go through the Raspberry Pi when VPN enabled.
+
+7. Securely move the `.ovpn` file to the client device and import it to the OpenVPN app.
