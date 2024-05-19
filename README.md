@@ -31,10 +31,11 @@ Self hosting various services on Raspberry Pi 5
 [Grafana](https://github.com/grafana/grafana) is a data visualization app. Used to monitor various metrics of the RaspberryPi.
 
 ## Installation
-1. Set up a [prometheus](https://prometheus.io/) database with [Node exporter](https://github.com/prometheus/node_exporter) for OS metrics. Run the following docker-compose file from the `prometheus` directory:
+1. Set up a [prometheus](https://prometheus.io/) database with [Node exporter](https://github.com/prometheus/node_exporter) for OS metrics. Run the docker-compose file from the `prometheus` directory:
     ```
     docker compose up -d
     ```
+    _(This docker compose file uses cAdvisor image `gcr.io/cadvisor/cadvisor:v0.49.1`. It's recommended to replace the version number with the lastest available.)_
 
 2. Run the Grafana docker container
     ```
@@ -45,7 +46,7 @@ Self hosting various services on Raspberry Pi 5
 3. Connect the prometheus database to Grafana:
     - In the Grafana web interface go to `Connections` and add a new one with the address `http://<machine-ip-address>:9090`.
 4. Create the data dashboard:
-    - In the Grafana web interface go to `Dashboards` > `New` > `Import` and upload the following JSON file: TODO.
+    - In the Grafana web interface go to `Dashboards` > `New` > `Import` and upload the JSON file form the `grafana` directory.
 
     _(For the "SSD Storage" visualizations you might need to adjust the queries used to retrieve the data. For that edit a specific dashboard element and adjust the `mountpoint` and `device` values of each query according to your setup.)_ 
 
