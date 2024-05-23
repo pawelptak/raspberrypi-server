@@ -56,7 +56,7 @@ The app is available on `http://<machine-ip-address>:32400`. Point the multimedi
 
 ## Installation
 1. Edit the docker-compose file from the `prometheus` directory:
-    - Set `QBITTORRENT_PASSWORD` with your password for `qbittorrent-nox`.
+    - Set `QBITTORRENT_PASSWORD` with your password for qbittorrent-nox.
     - Set `QBITTORRENT_BASE_URL` to be `http://<machine-ip-address>:8081`.
 
 2. Set up a [prometheus](https://prometheus.io/) database with [Node exporter](https://github.com/prometheus/node_exporter), [cAdvisor](https://github.com/google/cadvisor) and [qbittorrent-exporter](https://github.com/caseyscarborough/qbittorrent-exporter) for various OS metrics. Run the docker-compose file from the `prometheus` directory:
