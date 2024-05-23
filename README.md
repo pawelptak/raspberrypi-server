@@ -63,7 +63,7 @@ The app is available on `http://<machine-ip-address>:32400`. Point the multimedi
     ```
     docker compose up -d
     ```
-    _(This docker compose file uses cAdvisor image `gcr.io/cadvisor/cadvisor:v0.49.1`. It's recommended to replace the version number with the lastest available from https://github.com/google/cadvisor/releases/tag/v0.49.1)_
+    _(This docker compose file uses cAdvisor image `gcr.io/cadvisor/cadvisor:v0.49.1`. It's recommended to replace the version number with the lastest available from https://github.com/google/cadvisor/releases)_
 
 3. Run the Grafana docker container
     ```
