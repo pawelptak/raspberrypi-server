@@ -47,6 +47,19 @@ services:
     networks:
       - monitoring
 
+  qbittorrent-exporter:
+    image: caseyscarborough/qbittorrent-exporter:latest
+    container_name: qbittorrent-exporter
+    restart: unless-stopped
+    environment:
+      - QBITTORRENT_USERNAME=admin
+      - QBITTORRENT_PASSWORD=<your_password>
+      - QBITTORRENT_BASE_URL=http://192.168.1.13:8081
+    ports:
+      - 17871:17871
+    networks:
+      - monitoring
+
 networks:
   monitoring:
     driver: bridge
