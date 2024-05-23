@@ -27,6 +27,13 @@ Self hosting various services on Raspberry Pi 5
 
     The app is avaiable on `http://<machine-ip-address>:2283`
 
+# Plex
+[Plex Media Server](https://www.plex.tv/personal-media-server/) is a software application that allows you to organize and stream your multimedia to other devices.
+## Installation
+Install using snap: https://snapcraft.io/install/plexmediaserver/raspbian
+
+The app is available on `http://<machine-ip-address>:32400`. Point the multimedia location using the web interface.
+
 # qBittorrent
 [qBittorrent](https://github.com/qbittorrent/docker-qbittorrent-nox) is a bittorrent client. I set it up to download multimedia files directly to the Plex library.
 
@@ -66,18 +73,11 @@ Self hosting various services on Raspberry Pi 5
 
 4. Connect the prometheus database to Grafana:
     - In the Grafana web interface go to `Connections` and add a new one with the address `http://<machine-ip-address>:9090`.
-    
+
 5. Create the data dashboard:
     - In the Grafana web interface go to `Dashboards` > `New` > `Import` and upload the JSON file form the `grafana` directory.
 
     _(For the "SSD Storage" visualizations you might need to adjust the queries used to retrieve the data. For that edit a specific dashboard element and adjust the `mountpoint` and `device` values of each query according to your setup.)_ 
-
-# Plex
-[Plex Media Server](https://www.plex.tv/personal-media-server/) is a software application that allows you to organize and stream your multimedia to other devices.
-## Installation
-Install using snap: https://snapcraft.io/install/plexmediaserver/raspbian
-
-The app is available on `http://<machine-ip-address>:32400`. Point the multimedia location using the web interface.
 
 # Nextcloud
 [Nextcloud](https://github.com/nextcloud/server) is a file hosting solution.
