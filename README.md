@@ -7,6 +7,7 @@ Self hosting various services on Raspberry Pi 5
 - [Grafana](#grafana)
 - [qBittorrent](#qbittorrent)
 - [Nextcloud](#nextcloud)
+- [Pi-hole](#pi-hole)
 
 # Prerequisites
 - [Docker](https://docs.docker.com/get-docker/)
@@ -125,3 +126,22 @@ To be able to use all the services remotely [PiVPN](https://www.pivpn.io/) can b
     Otherwise, all connections from the client device will go through the Raspberry Pi when VPN enabled.
 
 7. Securely move the `.ovpn` file to the client device and import it to the OpenVPN app.
+
+# Pi-hole
+[Pi-hole](https://github.com/pi-hole/pi-hole) is a network-wide ad blocker.
+
+## Installation
+1. Edit the `docker_run.sh` from the `pihole` directory: 
+    - Set `FTLCONF_LOCAL_IPV4` with the IP address of your Raspberry Pi.
+
+2. Run the `docker_run.sh` script:
+    ```
+    bash docker_run.sh
+    ```
+    The app is avaiable on `http://<machine-ip-address>`
+
+3. Copy the password that is shown in the console output.
+
+4. Enter the password in the web interface.
+
+5. (Optional) Add more adlists by pasting their URLs in the `Adlists` tab. Some Polish ones can be found here: https://www.certyficate.it/polskie-filtry-pi-hole-blokowanie-reklam/.
