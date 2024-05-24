@@ -149,3 +149,5 @@ To be able to use all the services remotely [PiVPN](https://www.pivpn.io/) can b
 6. Set the DNS address for your client devices to be the IP address of your Raspberry Pi:
     - Either set it up in your router settings (not possible for me),
     - or set it up in your Wi-Fi network settings on your client device.
+
+7. To have the ad blocking working from outside your local network you should probably omit Point 6. of the [PiVPN](#pivpn) installation (haven't tried it).
