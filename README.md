@@ -33,7 +33,7 @@ Self hosting various services on Raspberry Pi 5
 ## Installation
 Install using snap: https://snapcraft.io/install/plexmediaserver/raspbian
 
-The app is available on `http://<machine-ip-address>:32400`. Point the multimedia location using the web interface.
+The app is available on `http://<machine-ip-address>:32400/manage`. Point the multimedia location using the web interface.
 
 # qBittorrent
 [qBittorrent](https://github.com/qbittorrent/docker-qbittorrent-nox) is a bittorrent client. I set it up to download multimedia files directly to the Plex library.
