@@ -9,7 +9,7 @@ PIHOLE_BASE="${PIHOLE_BASE:-$(pwd)}"
 docker run -d \
     --name pihole \
     -p 53:53/tcp -p 53:53/udp \
-    -p 80:80 \
+    -p 2137:80 \
     -e TZ="Europe/Warsaw" \
     -v "${PIHOLE_BASE}/etc-pihole:/etc/pihole" \
     -v "${PIHOLE_BASE}/etc-dnsmasq.d:/etc/dnsmasq.d" \
@@ -18,7 +18,7 @@ docker run -d \
     --hostname pi.hole \
     -e VIRTUAL_HOST="pi.hole" \
     -e PROXY_LOCATION="pi.hole" \
-    -e FTLCONF_LOCAL_IPV4="192.168.1.13" \
+    -e FTLCONF_LOCAL_IPV4="192.168.1.21" \
     pihole/pihole:latest
 
 printf 'Starting up pihole container '

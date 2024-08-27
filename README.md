@@ -113,7 +113,7 @@ The app is available on `http://<machine-ip-address>:32400/manage`. Point the mu
     ```
     bash docker_run.sh
     ```
-    The app is avaiable on `http://<machine-ip-address>`
+    The app is avaiable on `http://<machine-ip-address>:2137`
 
 3. Copy the password that is shown in the console output.
 
