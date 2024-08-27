@@ -8,6 +8,7 @@ Self hosting various services on Raspberry Pi 5
 - [qBittorrent](#qbittorrent)
 - [Nextcloud](#nextcloud)
 - [Pi-hole](#pi-hole)
+- [Apache2](#apache2)
 
 # Prerequisites
 - [Docker](https://docs.docker.com/get-docker/)
@@ -126,6 +127,69 @@ The app is available on `http://<machine-ip-address>:32400/manage`. Point the mu
     - or set it up in your Wi-Fi network settings on your client device.
 
 7. To have the ad blocking working from outside your local network you should probably omit Point 6. of the [PiVPN](#remote-access-from-outside-local-network) installation (haven't tried it).
+
+# Apache2
+[Apache2](https://httpd.apache.org/) is a HTTP web server.
+
+## Installation
+1. Run the following command: 
+    ```
+    sudo apt install apache2 -y
+    ```
+
+2. Start and enable Apache to run at boot:
+    ```
+    sudo systemctl start apache2
+    sudo systemctl enable apache2
+
+    ```
+    The app is avaiable on `http://<machine-ip-address>`. You should see the default Apache web page.
+
+## Sharing files on the server
+
+1. Create a directory to hold your files:
+    ```
+    sudo mkdir /var/www/html/content
+    ```
+
+2. Put your files into the directory.
+
+3. Copy the `shared.conf` file from the `apache2` directory into the `/etc/apache2/sites-available` directory.
+
+4. Enable the site:
+    ```
+    sudo a2ensite shared.conf
+    ```
+
+5. Reload Apache:
+    ```
+    sudo systemctl reload apache2
+    ```
+    The content placed in `/var/www/html/content` is avaiable on `http://<machine-ip-address>/content`.
+
+## Enable HTTPS
+To enable HTTPS you need to have a domain configured. You can get one for free from services like [No-IP](https://www.noip.com/).
+
+1. Install (certbot)[https://certbot.eff.org/]:
+    ```
+    sudo apt install certbot python3-certbot-apache -y
+    ```
+
+2. Obtain and install the SSL certificate:
+    ```
+    sudo certbot --apache
+    ```
+    and follow the prompts on the screen. Choose your domain name as well as the `shared` site activated earilier.
+
+3. A file named `shared-le-ssl.conf` will be generated in `/etc/apache2/sites-available/`.
+
+4. Enable SSL Module and Site:
+    ```
+    sudo a2enmod ssl
+    sudo a2ensite shared-le-ssl.conf
+    sudo systemctl reload apache2
+    ```
+    Your content will be available on `https://<machine-ip-address>/content`.
 
 # Remote access from outside local network
 To be able to use all the services remotely [PiVPN](https://www.pivpn.io/) can be used.

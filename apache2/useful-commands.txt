@@ -1,0 +1,17 @@
+List site configuration files:
+ls /etc/apache2/sites-available/
+
+List active sites:
+a2query -s
+
+Enable site:
+sudo a2ensite [filename].conf
+
+Disable site:
+sudo a2dissite [filename].conf
+
+Check config file syntax:
+sudo apache2ctl configtest
+
+Check Apache error log:
+sudo tail -f /var/log/apache2/error.log
