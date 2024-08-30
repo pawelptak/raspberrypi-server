@@ -200,7 +200,7 @@ To enable HTTPS you need to have a domain configured. You can get one for free f
     ```
     docker compose up -d
     ```
-    The app is avaiable on `http://<machine-ip-address>:2138`.
+    The app is avaiable on `http://<machine-ip-address>:2138`
 
 # Remote access from outside local network
 To be able to use all the services remotely [PiVPN](https://www.pivpn.io/) can be used.
