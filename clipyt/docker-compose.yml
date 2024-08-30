@@ -1,0 +1,7 @@
+services:
+  clipyt:
+    container_name: clipyt
+    image: pawelptak/clipyt:arm64
+    ports:
+      - "2138:80"
+    restart: always
