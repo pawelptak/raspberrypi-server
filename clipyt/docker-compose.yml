@@ -1,7 +1,9 @@
 services:
   clipyt:
     container_name: clipyt
-    image: pawelptak/clipyt:arm64
+    image: pawelptak/clipyt:latest
     ports:
       - "2138:80"
     restart: always
+    environment:
+      - APP_VERSION=${APP_VERSION}
