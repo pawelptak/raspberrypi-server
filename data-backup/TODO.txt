@@ -1,0 +1,2 @@
+- Backup immich db to an external SSD periodically: https://immich.app/docs/administration/backup-and-restore/#automatic-database-backups
+- Backup nextcloud data to an external SSD periodically. Probably using rsync
