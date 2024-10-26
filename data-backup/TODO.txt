@@ -1,2 +1,3 @@
-- Backup immich db to an external SSD periodically: https://immich.app/docs/administration/backup-and-restore/#automatic-database-backups
+Immich
+- In the immich folder you got the .env file and there: UPLOAD_LOCATION with all the photos and DB_DATA_LOCATION that has the paths to the photos. Both have to be backuped. https://immich.app/docs/administration/backup-and-restore/
 - Backup nextcloud data to an external SSD periodically. Probably using rsync
