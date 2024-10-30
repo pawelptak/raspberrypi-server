@@ -1,3 +1,4 @@
 Immich
 - In the immich folder you got the .env file and there: UPLOAD_LOCATION with all the photos and DB_DATA_LOCATION that has the paths to the photos. Both have to be backuped. Use this: https://immich.app/docs/guides/template-backup-script
 - Backup nextcloud data to an external SSD periodically. Probably using rsync
+- Configure grafana monitoring for immich https://immich.app/docs/features/monitoring
