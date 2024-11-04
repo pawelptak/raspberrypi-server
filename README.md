@@ -205,7 +205,7 @@ To enable HTTPS you need to have a domain configured. You can get one for free f
 
 
 # Navidrome
-[Navidrome](https://www.navidrome.org/) is a self-hosted music streaming service.
+[Navidrome](https://github.com/navidrome/navidrome) is a self-hosted music streaming service.
 
 ## Installation
 1. Set up using the docker-compose file inside the `navidrome` directory:
