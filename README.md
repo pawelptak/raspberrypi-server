@@ -10,6 +10,7 @@ Self hosting various services on Raspberry Pi 5
 - [Pi-hole](#pi-hole)
 - [Apache2](#apache2)
 - [ClipYT](#clipyt)
+- [Navidrome](#navidrome)
 
 # Prerequisites
 - [Docker](https://docs.docker.com/get-docker/)
@@ -201,6 +202,20 @@ To enable HTTPS you need to have a domain configured. You can get one for free f
     docker compose up -d
     ```
     The app is avaiable on `http://<machine-ip-address>:2138`
+
+
+# Navidrome
+[Navidrome](https://www.navidrome.org/) is a self-hosted music streaming service.
+
+## Installation
+1. Set up using the docker-compose file inside the `navidrome` directory:
+    ```
+    docker compose up -d
+    ```
+    (Under `volumes`, `/mnt/ssd/navidrome/data` and `/mnt/ssd/navidrome/music` should point to your music and data folders. `ND_BASEURL` can be omitted if no reverse-proxy will be configured.)
+
+    The app is avaiable on `http://<machine-ip-address>:4533`
+    
 
 # Remote access from outside local network
 To be able to use all the services remotely [PiVPN](https://www.pivpn.io/) can be used.
