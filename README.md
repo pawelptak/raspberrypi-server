@@ -183,7 +183,7 @@ To enable HTTPS you need to have a domain configured. You can get one for free f
     ```
     and follow the prompts on the screen. Choose your domain name as well as the `shared` site activated earilier.
    
-    (Cert renewal: Make sure NAT for port 80 is enabled for your domain! And type in `sudo certbot renew`.)
+    (Cert renewal: Make sure NAT for port 80 is enabled for your domain in router settings! And type in `sudo certbot renew`.)
 
 4. A file named `shared-le-ssl.conf` will be generated in `/etc/apache2/sites-available/`.
 
