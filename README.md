@@ -182,10 +182,12 @@ To enable HTTPS you need to have a domain configured. You can get one for free f
     sudo certbot --apache
     ```
     and follow the prompts on the screen. Choose your domain name as well as the `shared` site activated earilier.
+   
+    (Cert renewal: Make sure NAT for port 80 is enabled for your domain! And type in `sudo certbot renew`.)
 
-3. A file named `shared-le-ssl.conf` will be generated in `/etc/apache2/sites-available/`.
+4. A file named `shared-le-ssl.conf` will be generated in `/etc/apache2/sites-available/`.
 
-4. Enable SSL Module and Site:
+5. Enable SSL Module and Site:
     ```
     sudo a2enmod ssl
     sudo a2ensite shared-le-ssl.conf
