@@ -1,3 +1,4 @@
 - Add to readme: how often will the immich backup be made??
+- Disable immich auto db backups? See: Info section from https://immich.app/docs/guides/template-backup-script/
 - Backup nextcloud data to an external SSD periodically. Probably using rsync
 - Configure grafana monitoring for immich https://immich.app/docs/features/monitoring
