@@ -1,3 +1,1 @@
-- Add to readme: how often will the immich backup be made??
-- Disable immich auto db backups? See: Info section from https://immich.app/docs/guides/template-backup-script/
 - Configure grafana monitoring for immich https://immich.app/docs/features/monitoring

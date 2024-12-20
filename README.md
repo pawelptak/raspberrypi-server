@@ -246,22 +246,6 @@ To be able to use all the services remotely [PiVPN](https://www.pivpn.io/) can b
 
 # Data backup
 
-## Immich
-In the `immich` folder you got the .env file and there: `UPLOAD_LOCATION` with all the photos and `DB_DATA_LOCATION` that has the paths to the photos. Both have to be backuped. The database is automatically backuped in `UPLOAD_LOCATION\backups` ([source](https://immich.app/docs/administration/backup-and-restore/#automatic-database-backups)). To create a backup of Immich db and the media files on a separate drive, you need to perform the following steps:
-
-1. Install Borg: 
-    ```
-    sudo apt install borgbackup
-    ```
-
-2. Run the commands from the "Borg set-up" section of the [docs](https://immich.app/docs/guides/template-backup-script/) (I omit the "##Remote set up" part. Add `sudo` for commands that fail).
-
-3. Edit and run the script from the "Borg backup template" section of the [docs](https://immich.app/docs/guides/template-backup-script/) (Again, I omit the "REMOTE_HOST", "REMOTE_BACKUP_PATH" lines and the "### Append to remote Borg repository" section). The script that I used can be found in `data-backup/immich-borg-setup.sh`. Running the script can take a while, since it is creating backup of all the data.
-
-4. To restore data from a certain point, refer to the (restoring)(https://immich.app/docs/guides/template-backup-script/#restoring) section. You restored data will be in the temporary mountpoint that you create. After restoring the data, unmount the mountpoint.
-
-For restoring the immich database itself, keep in mind the [restoring](https://immich.app/docs/guides/template-backup-script/#restoring) section of the docs. The `dump.sql.gz` that you need to perform it, should be in the mountpoint mentioned earlier. Good luck and may God be with you when doing it.
-
 ## Nextcloud (or any other folder)
 
 1. Install rsync:
@@ -284,3 +268,30 @@ And add the following line (this will run daily at 3:00 AM):
 `0 3 * * * rsync -av --delete /home/pi/myfolder/ /mnt/backupdrive/mybackup/`
 
 More info on the cron syntax [here](https://crontab.guru/).
+
+## Immich
+In the `immich` folder you got the .env file and there: `UPLOAD_LOCATION` with all the photos and `DB_DATA_LOCATION` that has the paths to the photos. Both have to be backuped. The database is automatically backuped in `UPLOAD_LOCATION\backups` ([source](https://immich.app/docs/administration/backup-and-restore/#automatic-database-backups)). To create a backup of Immich db and the media files on a separate drive, you need to perform the following steps:
+
+1. Install Borg: 
+    ```
+    sudo apt install borgbackup
+    ```
+
+2. Run the commands from the "Borg set-up" section of the [docs](https://immich.app/docs/guides/template-backup-script/) (I omit the "##Remote set up" part. Add `sudo` for commands that fail).
+
+3. Edit and run the script from the "Borg backup template" section of the [docs](https://immich.app/docs/guides/template-backup-script/) (Again, I omit the "REMOTE_HOST", "REMOTE_BACKUP_PATH" lines and the "### Append to remote Borg repository" section). The script that I used can be found in `data-backup/immich-borg-setup.sh`. Running the script can take a while, since it is creating backup of all the data.
+
+4. Edit the crontab file:
+    ```
+    sudo crontab -e
+    ```
+    Add the following line (this will run daily at 2:00 AM):
+
+    `0 2 * * * /path/to/your/immich-borg-setup.sh`
+
+5. (optional) If everything works you can disable Immich automatic database backup by going to `http://your-immich-address/admin/system-settings` and unchecking the automatic database backup option.
+
+6. To restore data from a certain point, refer to the (restoring)(https://immich.app/docs/guides/template-backup-script/#restoring) section. You restored data will be in the temporary mountpoint that you create. After restoring the data, unmount the mountpoint.
+
+For restoring the immich database itself, keep in mind the [restoring](https://immich.app/docs/guides/template-backup-script/#restoring) section of the docs. The `dump.sql.gz` that you need to perform it, should be in the mountpoint mentioned earlier. Good luck and may God be with you when doing it.
+

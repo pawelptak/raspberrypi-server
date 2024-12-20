@@ -1,0 +1,2 @@
+0 3 * * * rsync -av --delete /mnt/ssd/nextcloud/data/admin/files /mnt/ssd_backup/nextcloud_backup
+0 2 * * * /home/raspberrypi/ApkiPawla/immich/immich-borg-setup.sh
