@@ -261,3 +261,24 @@ In the `immich` folder you got the .env file and there: `UPLOAD_LOCATION` with a
 4. To restore data from a certain point, refer to the (restoring)(https://immich.app/docs/guides/template-backup-script/#restoring) section. You restored data will be in the temporary mountpoint that you create. After restoring the data, unmount the mountpoint.
 
 For restoring the immich database itself, keep in mind the [restoring](https://immich.app/docs/guides/template-backup-script/#restoring) section of the docs. The `dump.sql.gz` that you need to perform it, should be in the mountpoint mentioned earlier. Good luck and may God be with you when doing it.
+
+# Nextcloud (or any other folder)
+
+1. Install rsync:
+    ```
+    sudo apt install rsync
+    ```
+
+2. (optional) Run rsync manually:
+    ```
+    sudo rsync -av --delete /home/pi/myfolder/ /mnt/backupdrive/mybackup/
+    ```
+    (The nextcloud data folder will be something like `.../nextcloud/data/admin/files`)
+
+3. Set up a cron job for automation. Edit the crontab file:
+    ```
+    sudo crontab -e
+    ```
+And add the following line (this will run daily at 3:00 AM):
+`0 3 * * * rsync -av --delete /home/pi/myfolder/ /mnt/backupdrive/mybackup/`
+More info on the cron syntax [here](https://crontab.guru/).
