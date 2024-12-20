@@ -262,7 +262,7 @@ In the `immich` folder you got the .env file and there: `UPLOAD_LOCATION` with a
 
 For restoring the immich database itself, keep in mind the [restoring](https://immich.app/docs/guides/template-backup-script/#restoring) section of the docs. The `dump.sql.gz` that you need to perform it, should be in the mountpoint mentioned earlier. Good luck and may God be with you when doing it.
 
-# Nextcloud (or any other folder)
+## Nextcloud (or any other folder)
 
 1. Install rsync:
     ```
