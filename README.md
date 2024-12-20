@@ -282,4 +282,5 @@ For restoring the immich database itself, keep in mind the [restoring](https://i
 And add the following line (this will run daily at 3:00 AM):
 
 `0 3 * * * rsync -av --delete /home/pi/myfolder/ /mnt/backupdrive/mybackup/`
+
 More info on the cron syntax [here](https://crontab.guru/).
