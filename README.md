@@ -296,7 +296,7 @@ In the `immich` folder you got the .env file and there: `UPLOAD_LOCATION` with a
 
 6. (optional) If everything works you can disable Immich automatic database backup by going to `http://your-immich-address/admin/system-settings` and unchecking the automatic database backup option.
 
-7. To restore data from a certain point, refer to the (restoring)(https://immich.app/docs/guides/template-backup-script/#restoring) section. You restored data will be in the temporary mountpoint that you create. After restoring the data, unmount the mountpoint.
+7. To restore data from a certain point, refer to the [restoring](https://immich.app/docs/guides/template-backup-script/#restoring) section. You restored data will be in the temporary mountpoint that you create. After restoring the data, unmount the mountpoint.
 
-For restoring the immich database itself, keep in mind the [restoring](https://immich.app/docs/guides/template-backup-script/#restoring) section of the docs. The `dump.sql.gz` that you need to perform it, should be in the mountpoint mentioned earlier. Good luck and may God be with you when doing it.
+For restoring the immich database itself, keep in mind the [Manual Backup and Restore](https://immich.app/docs/administration/backup-and-restore/#manual-backup-and-restore) section of the docs (The "Restore" part). They mention a `dump.sql.gz` file but we have just a .sql file backed up, so idk? Good luck and may God be with you when doing the restore part.
 
