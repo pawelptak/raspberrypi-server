@@ -128,6 +128,10 @@ To do it you have to set up [Apache2 with HTTPS](#enable-https) first.
         ```
         'overwrite.cli.url' => 'https://karolwojtyla.servecounterstrike.com',
         ```
+    - Add the following line:
+      ```
+      'overwriteprotocol' => 'https',
+      ```
 
 3. Restart Apache2 and Nextcloud:
     ```
