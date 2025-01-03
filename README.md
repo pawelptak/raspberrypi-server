@@ -105,6 +105,38 @@ The app is available on `http://<machine-ip-address>:32400/manage`. Point the mu
         - Database name: `postgres`
         - Database host: `postgres`
 
+## Access via HTTPS
+To do it you have to set up [Apache2 with HTTPS](#enable-https) first.
+
+1. After that, add the following lines to your Apache2 config file (assuming Nextcloud runs on the default 8080 port):
+    ```
+    ProxyPass / http://localhost:8080/
+    ProxyPassReverse / http://localhost:8080/
+    ```
+
+2. Edit the Nextcloud `config.php` file (in my case it's under `/mnt/ssd/nextcloud/config/config.php`). 
+
+    - Add your domain to the `'trusted_domains'`. In my case it's:
+        ```
+            'trusted_domains' => 
+        array (
+            0 => '192.168.1.21:8080',
+            1 => 'karolwojtyla.servecounterstrike.com',
+        ),
+        ```
+    - Edit the `'overwrite.cli.url'` line to point to your domain. In my case: 
+        ```
+        'overwrite.cli.url' => 'https://karolwojtyla.servecounterstrike.com',
+        ```
+
+3. Restart Apache2 and Nextcloud:
+    ```
+    sudo systemctl restart apache2
+    docker restart nextcloud
+    ``` 
+
+4. (Optional but strongly recommended) Enable 2FA in Nextcloud. In the Nextcloud web interface go to Applications and add the `Two-Factor TOTP Provider` app. Then go to your account settings > `Security` > TOTP. Configure it with the Authenticator app.
+
 # Pi-hole
 [Pi-hole](https://github.com/pi-hole/pi-hole) is a network-wide ad blocker.
 
