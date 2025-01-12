@@ -232,6 +232,58 @@ To enable HTTPS you need to have a domain configured. You can get one for free f
     ```
     Your content will be available on `https://<machine-ip-address>/content`.
 
+## (Optional) Secure Apache2 server againts attacks
+[ModSecurity](https://github.com/owasp-modsecurity/ModSecurity) will be used to secure the Apache2 server against malicious attacks.
+
+1. Install and enable ModSecurity:
+    ```
+    sudo apt install apache2 libapache2-mod-security2 -y
+    sudo a2enmod security2
+    sudo systemctl restart apache2
+    ```
+
+2. Use the default configuration file:
+    ```
+    sudo cp /etc/modsecurity/modsecurity.conf-recommended /etc/modsecurity/modsecurity.conf
+    ```
+
+3. Install the OWASP ModSecurity Core Rule Set (CRS) (URL to the latest version can be found in https://coreruleset.org/docs/deployment/install/):
+    ```
+    wget https://github.com/coreruleset/coreruleset/archive/v3.3.0.zip
+    unzip v3.3.0.zip
+    mv coreruleset-3.3.0/crs-setup.conf.example /etc/modsecurity/crs-setup.conf
+    mv coreruleset-3.3.0/rules/ /etc/modsecurity/
+    ```
+
+4. Edit your Apache security2.conf file to load ModSecurity rules:
+    ```
+    sudo nano /etc/apache2/mods-enabled/security2.conf
+
+    <IfModule security2_module>
+        # Default Debian dir for modsecurity's persistent data
+        SecDataDir /var/cache/modsecurity
+
+        # Include all the *.conf files in /etc/modsecurity.
+        # Keeping your local configuration in that directory
+        # will allow for an easy upgrade of THIS file and
+        # make your life easier
+        IncludeOptional /etc/modsecurity/*.conf
+        Include /etc/modsecurity/rules/*.conf
+    </IfModule>
+    ```
+
+5. Switch ModSecurity to blocking mode:
+    ```
+    sudo nano /etc/modsecurity/modsecurity.conf
+    ```
+    Change the line `SecRuleEngine DetectionOnly` to `SecRuleEngine On` and save the changes.
+
+6. Restart Apache2:
+    ```
+    systemctl restart apache2
+    ```
+    If you get errors about duplicated rules, ensure you have only one `crs-setup.conf`. I had to remove the one from `/etc/modsecurity/crs`.
+
 # GoAccess
 [GoAccess](https://goaccess.io/) is a web log analyzer that allows you to analyze the trafic from your server trough the web browser. In this case it is used to analyze Apache2 server logs.
 
