@@ -232,7 +232,7 @@ To enable HTTPS you need to have a domain configured. You can get one for free f
     ```
     Your content will be available on `https://<machine-ip-address>/content`.
 
-## (Optional) Secure Apache2 server againts attacks
+## (Optional) Secure Apache2 server against attacks
 [ModSecurity](https://github.com/owasp-modsecurity/ModSecurity) will be used to secure the Apache2 server against malicious attacks.
 
 1. Install and enable ModSecurity:
