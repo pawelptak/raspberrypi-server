@@ -1,0 +1,26 @@
+services:
+  loki:
+    image: grafana/loki:2.8.0
+    container_name: loki
+    ports:
+      - "3100:3100"
+    networks:
+      - monitoring
+
+  promtail:
+    image: grafana/promtail:2.8.0
+    container_name: promtail
+    command:
+      - "-config.file=/etc/promtail/promtail.yaml"
+    volumes:
+      - ./promtail-config.yaml:/etc/promtail/promtail.yaml
+      - /var/log/apache2:/var/log/apache2
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    driver: bridge
+
+volumes:
+  grafana_data:
