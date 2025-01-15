@@ -197,7 +197,7 @@
               },
               "status": {
                 "aggregations": [
-                  "lastNotNull"
+                  "firstNotNull"
                 ],
                 "operation": "aggregate"
               },
@@ -214,7 +214,7 @@
               },
               "useragent": {
                 "aggregations": [
-                  "lastNotNull"
+                  "firstNotNull"
                 ],
                 "operation": "aggregate"
               }
@@ -3687,6 +3687,6 @@
   "timezone": "browser",
   "title": "RaspberryPi Monitoring",
   "uid": "rYdddlPWk",
-  "version": 44,
+  "version": 45,
   "weekStart": ""
 }
