@@ -89,7 +89,20 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "date"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 314
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -109,7 +122,8 @@
           ],
           "show": false
         },
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": []
       },
       "pluginVersion": "10.4.3",
       "targets": [
@@ -119,7 +133,7 @@
             "uid": "ce8z6zgdrobnkd"
           },
           "editorMode": "code",
-          "expr": "{job=\"apache_access\"} | pattern `<IP> - - [<timestamp>] \"<method> <path> <protocol>\" <status> <size> \"<referrer>\" \"<useragent>\"` | line_format \"{{.IP}} {{.timestamp}} {{.method}} {{.path}} {{.status}} {{.size}} {{.referrer}} {{.useragent}}\"",
+          "expr": "{job=\"apache_access\"} | pattern `<IP> - - [<datetime>] \"<method> <path> <protocol>\" <status> <size> \"<referrer>\" \"<useragent>\"` | line_format \"{{.IP}} {{.datetime}} {{.method}} {{.path}} {{.status}} {{.size}} {{.referrer}} {{.useragent}}\"",
           "queryType": "range",
           "refId": "A"
         }
@@ -136,6 +150,18 @@
           }
         },
         {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "desc": true,
+                "field": "Time"
+              }
+            ]
+          }
+        },
+        {
           "id": "groupBy",
           "options": {
             "fields": {
@@ -148,6 +174,12 @@
                   "firstNotNull"
                 ],
                 "operation": "aggregate"
+              },
+              "datetime": {
+                "aggregations": [
+                  "lastNotNull",
+                  "firstNotNull"
+                ]
               },
               "path": {
                 "aggregations": [
@@ -169,10 +201,16 @@
                 ],
                 "operation": "aggregate"
               },
+              "time": {
+                "aggregations": [
+                  "lastNotNull"
+                ]
+              },
               "timestamp": {
                 "aggregations": [
-                  "firstNotNull"
-                ]
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
               },
               "useragent": {
                 "aggregations": [
@@ -191,45 +229,6 @@
         "type": "loki",
         "uid": "ce8z6zgdrobnkd"
       },
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "filename"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 222
-              }
-            ]
-          }
-        ]
-      },
       "gridPos": {
         "h": 8,
         "w": 24,
@@ -238,17 +237,14 @@
       },
       "id": 349,
       "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true,
-        "sortBy": []
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
       },
       "pluginVersion": "10.4.3",
       "targets": [
@@ -258,7 +254,7 @@
             "uid": "ce8z6zgdrobnkd"
           },
           "editorMode": "code",
-          "expr": "{job=\"apache_access\"} | pattern `<IP> - - [<timestamp>] \"<method> <path> <protocol>\" <status> <size> \"<referrer>\" \"<useragent>\"` | line_format \"{{.IP}} {{.timestamp}} {{.method}} {{.path}} {{.status}} {{.size}} {{.referrer}} {{.useragent}}\"",
+          "expr": "{job=\"apache_access\"}",
           "queryType": "range",
           "refId": "A"
         }
@@ -266,6 +262,7 @@
       "title": "Apache2 Access Logs",
       "transformations": [
         {
+          "disabled": true,
           "id": "extractFields",
           "options": {
             "format": "json",
@@ -275,6 +272,7 @@
           }
         },
         {
+          "disabled": true,
           "id": "organize",
           "options": {
             "excludeByName": {
@@ -288,7 +286,7 @@
           }
         }
       ],
-      "type": "table"
+      "type": "logs"
     },
     {
       "datasource": {
@@ -1151,7 +1149,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1233,7 +1232,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)"
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": null
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -1323,7 +1323,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1406,7 +1407,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1490,7 +1492,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1577,7 +1580,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "#EAB839",
@@ -1680,7 +1684,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "red"
+                "color": "red",
+                "value": null
               },
               {
                 "color": "yellow",
@@ -2102,7 +2107,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2512,7 +2518,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)"
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": null
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -2600,7 +2607,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -2774,7 +2782,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2851,7 +2860,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "transparent"
+                "color": "transparent",
+                "value": null
               }
             ]
           },
@@ -2927,7 +2937,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgb(33, 33, 35)"
+                "color": "rgb(33, 33, 35)",
+                "value": null
               },
               {
                 "color": "#37872D",
@@ -3008,7 +3019,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgb(33, 33, 35)"
+                "color": "rgb(33, 33, 35)",
+                "value": null
               },
               {
                 "color": "#C4162A",
@@ -3075,7 +3087,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgb(255, 172, 10)"
+                "color": "rgb(255, 172, 10)",
+                "value": null
               }
             ]
           },
@@ -3147,7 +3160,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "transparent"
+                "color": "transparent",
+                "value": null
               },
               {
                 "color": "#37872D",
@@ -3224,7 +3238,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgb(33, 33, 35)"
+                "color": "rgb(33, 33, 35)",
+                "value": null
               },
               {
                 "color": "rgba(237, 158, 40, 0.89)",
@@ -3303,7 +3318,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-red"
+                "color": "dark-red",
+                "value": null
               },
               {
                 "color": "dark-orange",
@@ -3402,7 +3418,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3670,6 +3687,6 @@
   "timezone": "browser",
   "title": "RaspberryPi Monitoring",
   "uid": "rYdddlPWk",
-  "version": 42,
+  "version": 44,
   "weekStart": ""
 }
