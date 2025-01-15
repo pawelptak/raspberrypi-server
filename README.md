@@ -298,7 +298,7 @@ Loki and Promtail have been used to fetch logs from ModSecurity and pass them to
 
 4. In Grafana go to `Alert rules` > `New alert rule`. 
     - Set a name for the rule.
-    - Under queries select `Code` and paste the following query: `sum(count_over_time({job="modsec"} |~ "ModSecurity: (Warning|Emergency|Alert|Critical)" [5m]))`.
+    - Under queries select `Code` and paste the following query: `sum by (ip, message,d)(count_over_time({job="modsec"} |~ "ModSecurity: (Warning|Emergency|Alert|Critical)" | pattern "<_> [<_> <_>] [<_> <_>] [<_> <_>] [<_> <ip>] <message> [d]" [5m]))`.
     - Under `Expressions` > `Threshold`, select `Input A IS ABOVE 0`.
     - Under `3. Set evaluation behavior` create a folder and evaluation group with the names of your liking. Pending period can be set to 5m.
     - Under `5. Add annotations` you can set some summary for your alert which will be seen in the notification message.
