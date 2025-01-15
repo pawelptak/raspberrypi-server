@@ -101,6 +101,18 @@
                 "value": 314
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "path (firstNotNull)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 386
+              }
+            ]
           }
         ]
       },
@@ -184,10 +196,12 @@
               "path": {
                 "aggregations": [
                   "lastNotNull"
-                ]
+                ],
+                "operation": "aggregate"
               },
               "referrer": {
                 "aggregations": [
+                  "lastNotNull",
                   "firstNotNull"
                 ],
                 "operation": "aggregate"
@@ -3687,6 +3701,6 @@
   "timezone": "browser",
   "title": "RaspberryPi Monitoring",
   "uid": "rYdddlPWk",
-  "version": 45,
+  "version": 46,
   "weekStart": ""
 }
