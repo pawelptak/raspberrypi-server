@@ -16,3 +16,11 @@ scrape_configs:
         labels:
           job: 'modsec'
           __path__: /var/log/apache2/modsec_audit.log
+
+  - job_name: 'apache_access_logs'
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: 'apache_access'
+          __path__: /var/log/apache2/access.log

@@ -49,6 +49,286 @@
   "panels": [
     {
       "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 347,
+      "panels": [],
+      "title": "Logs",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ce8z6zgdrobnkd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 348,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ce8z6zgdrobnkd"
+          },
+          "editorMode": "code",
+          "expr": "{job=\"apache_access\"} | pattern `<IP> - - [<timestamp>] \"<method> <path> <protocol>\" <status> <size> \"<referrer>\" \"<useragent>\"` | line_format \"{{.IP}} {{.timestamp}} {{.method}} {{.path}} {{.status}} {{.size}} {{.referrer}} {{.useragent}}\"",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Apache2 Access Logs Simple",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "keepTime": true,
+            "replace": true,
+            "source": "labels"
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "IP": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Time": {
+                "aggregations": [
+                  "firstNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "path": {
+                "aggregations": [
+                  "lastNotNull"
+                ]
+              },
+              "referrer": {
+                "aggregations": [
+                  "firstNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "size": {
+                "aggregations": []
+              },
+              "status": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "timestamp": {
+                "aggregations": [
+                  "firstNotNull"
+                ]
+              },
+              "useragent": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ce8z6zgdrobnkd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "filename"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 222
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 349,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ce8z6zgdrobnkd"
+          },
+          "editorMode": "code",
+          "expr": "{job=\"apache_access\"} | pattern `<IP> - - [<timestamp>] \"<method> <path> <protocol>\" <status> <size> \"<referrer>\" \"<useragent>\"` | line_format \"{{.IP}} {{.timestamp}} {{.method}} {{.path}} {{.status}} {{.size}} {{.referrer}} {{.useragent}}\"",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Apache2 Access Logs",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "keepTime": true,
+            "replace": true,
+            "source": "labels"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "filename": true,
+              "job": true,
+              "protocol": true
+            },
+            "includeByName": {},
+            "indexByName": {},
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "ce8z6zgdrobnkd"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 346,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "ce8z6zgdrobnkd"
+          },
+          "editorMode": "code",
+          "expr": "{job=\"modsec\"} |~ \"ModSecurity: (Warning|Emergency|Alert|Critical)\"\r\n",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Apache2 Suspicious Traffic",
+      "type": "logs"
+    },
+    {
+      "collapsed": false,
       "datasource": {
         "type": "prometheus",
         "uid": "000000001"
@@ -57,7 +337,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 26
       },
       "id": 261,
       "panels": [],
@@ -123,7 +403,7 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 1
+        "y": 27
       },
       "id": 20,
       "options": {
@@ -203,7 +483,7 @@
         "h": 4,
         "w": 3,
         "x": 3,
-        "y": 1
+        "y": 27
       },
       "hideTimeOverride": false,
       "id": 16,
@@ -310,7 +590,7 @@
         "h": 4,
         "w": 3,
         "x": 6,
-        "y": 1
+        "y": 27
       },
       "id": 155,
       "options": {
@@ -400,7 +680,7 @@
         "h": 12,
         "w": 6,
         "x": 9,
-        "y": 1
+        "y": 27
       },
       "id": 332,
       "maxDataPoints": 100,
@@ -522,7 +802,7 @@
         "h": 12,
         "w": 9,
         "x": 15,
-        "y": 1
+        "y": 27
       },
       "id": 331,
       "maxDataPoints": 100,
@@ -604,7 +884,7 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 5
+        "y": 31
       },
       "id": 323,
       "options": {
@@ -718,7 +998,7 @@
         "h": 4,
         "w": 3,
         "x": 3,
-        "y": 5
+        "y": 31
       },
       "id": 154,
       "options": {
@@ -807,7 +1087,7 @@
         "h": 4,
         "w": 3,
         "x": 6,
-        "y": 5
+        "y": 31
       },
       "id": 21,
       "options": {
@@ -871,8 +1151,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -888,7 +1167,7 @@
         "h": 2,
         "w": 3,
         "x": 0,
-        "y": 9
+        "y": 35
       },
       "id": 14,
       "maxDataPoints": 100,
@@ -954,8 +1233,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
+                "color": "rgba(50, 172, 45, 0.97)"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -975,7 +1253,7 @@
         "h": 2,
         "w": 3,
         "x": 3,
-        "y": 9
+        "y": 35
       },
       "id": 23,
       "maxDataPoints": 100,
@@ -1045,8 +1323,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1062,7 +1339,7 @@
         "h": 2,
         "w": 3,
         "x": 6,
-        "y": 9
+        "y": 35
       },
       "id": 75,
       "maxDataPoints": 100,
@@ -1129,8 +1406,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1146,7 +1422,7 @@
         "h": 2,
         "w": 5,
         "x": 0,
-        "y": 11
+        "y": 37
       },
       "hideTimeOverride": true,
       "id": 15,
@@ -1214,8 +1490,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1231,7 +1506,7 @@
         "h": 2,
         "w": 4,
         "x": 5,
-        "y": 11
+        "y": 37
       },
       "id": 18,
       "maxDataPoints": 100,
@@ -1272,49 +1547,12 @@
       "type": "stat"
     },
     {
-      "datasource": {
-        "type": "loki",
-        "uid": "ce8z6zgdrobnkd"
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 24,
-        "x": 0,
-        "y": 13
-      },
-      "id": 346,
-      "options": {
-        "dedupStrategy": "none",
-        "enableLogDetails": true,
-        "prettifyLogMessage": false,
-        "showCommonLabels": false,
-        "showLabels": false,
-        "showTime": true,
-        "sortOrder": "Descending",
-        "wrapLogMessage": false
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "ce8z6zgdrobnkd"
-          },
-          "editorMode": "code",
-          "expr": "{job=\"modsec\"} |~ \"ModSecurity: (Warning|Emergency|Alert|Critical)\"\r\n",
-          "queryType": "range",
-          "refId": "A"
-        }
-      ],
-      "title": "Apache2 Suspicious Traffic",
-      "type": "logs"
-    },
-    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 39
       },
       "id": 326,
       "panels": [],
@@ -1359,7 +1597,7 @@
         "h": 5,
         "w": 3,
         "x": 0,
-        "y": 23
+        "y": 40
       },
       "id": 327,
       "options": {
@@ -1763,7 +2001,7 @@
         "h": 10,
         "w": 7,
         "x": 3,
-        "y": 23
+        "y": 40
       },
       "id": 330,
       "options": {
@@ -2193,7 +2431,7 @@
         "h": 10,
         "w": 14,
         "x": 10,
-        "y": 23
+        "y": 40
       },
       "id": 329,
       "options": {
@@ -2294,7 +2532,7 @@
         "h": 5,
         "w": 3,
         "x": 0,
-        "y": 28
+        "y": 45
       },
       "id": 328,
       "maxDataPoints": 100,
@@ -2343,7 +2581,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 33
+        "y": 50
       },
       "id": 335,
       "panels": [],
@@ -2374,7 +2612,7 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 34
+        "y": 51
       },
       "id": 336,
       "options": {
@@ -2429,7 +2667,7 @@
         "h": 8,
         "w": 15,
         "x": 3,
-        "y": 34
+        "y": 51
       },
       "hiddenSeries": false,
       "id": 338,
@@ -2552,7 +2790,7 @@
         "h": 3,
         "w": 3,
         "x": 18,
-        "y": 34
+        "y": 51
       },
       "id": 342,
       "maxDataPoints": 100,
@@ -2625,7 +2863,7 @@
         "h": 3,
         "w": 3,
         "x": 21,
-        "y": 34
+        "y": 51
       },
       "id": 339,
       "maxDataPoints": 100,
@@ -2708,7 +2946,7 @@
         "h": 4,
         "w": 3,
         "x": 18,
-        "y": 37
+        "y": 54
       },
       "id": 343,
       "maxDataPoints": 100,
@@ -2789,7 +3027,7 @@
         "h": 4,
         "w": 3,
         "x": 21,
-        "y": 37
+        "y": 54
       },
       "id": 344,
       "maxDataPoints": 100,
@@ -2849,7 +3087,7 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 38
+        "y": 55
       },
       "id": 337,
       "options": {
@@ -2925,7 +3163,7 @@
         "h": 4,
         "w": 3,
         "x": 18,
-        "y": 41
+        "y": 58
       },
       "id": 340,
       "maxDataPoints": 100,
@@ -3005,7 +3243,7 @@
         "h": 4,
         "w": 3,
         "x": 21,
-        "y": 41
+        "y": 58
       },
       "id": 341,
       "maxDataPoints": 100,
@@ -3093,7 +3331,7 @@
         "h": 3,
         "w": 18,
         "x": 0,
-        "y": 42
+        "y": 59
       },
       "id": 345,
       "options": {
@@ -3137,7 +3375,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 45
+        "y": 62
       },
       "id": 333,
       "panels": [],
@@ -3221,7 +3459,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 46
+        "y": 63
       },
       "id": 334,
       "options": {
@@ -3432,6 +3670,6 @@
   "timezone": "browser",
   "title": "RaspberryPi Monitoring",
   "uid": "rYdddlPWk",
-  "version": 36,
+  "version": 42,
   "weekStart": ""
 }
