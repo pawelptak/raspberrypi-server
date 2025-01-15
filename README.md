@@ -269,6 +269,10 @@ To enable HTTPS you need to have a domain configured. You can get one for free f
         # make your life easier
         IncludeOptional /etc/modsecurity/*.conf
         Include /etc/modsecurity/rules/*.conf
+
+        # Disable rules that block Nextcloud access
+        SecRuleRemoveById 980130        
+        SecRuleRemoveById 911100
     </IfModule>
     ```
 
