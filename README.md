@@ -133,6 +133,10 @@ To do it you have to set up [Apache2 with HTTPS](#enable-https) first.
       ```
       'overwriteprotocol' => 'https',
       ```
+    - Add your local IP to the `'trusted_proxies'`. In my case it's:
+      ```
+      'trusted_proxies' => ['192.168.1.21'],
+      ```
 
 3. Restart Apache2 and Nextcloud:
     ```
