@@ -298,14 +298,15 @@ To enable HTTPS you need to have a domain configured. You can get one for free f
             #IncludeOptional /usr/share/modsecurity-crs/*.load
     </IfModule>
     ```
+5. (Optional) Enable DoS Protection. Edit the `/etc/modsecurity/crs-setup.conf` and find the `[[ Anti-Automation / DoS Protection ]]` section. The default is blocking more than 100 requests in 60 seconds for 600 seconds. Uncomment the rule below and adjust the values to your liking.
 
-5. Switch ModSecurity to blocking mode:
+6. Switch ModSecurity to blocking mode:
     ```
     sudo nano /etc/modsecurity/modsecurity.conf
     ```
     Change the line `SecRuleEngine DetectionOnly` to `SecRuleEngine On` and save the changes.
 
-6. Restart Apache2:
+7. Restart Apache2:
     ```
     systemctl restart apache2
     ```
