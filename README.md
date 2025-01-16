@@ -264,19 +264,38 @@ To enable HTTPS you need to have a domain configured. You can get one for free f
     sudo nano /etc/apache2/mods-enabled/security2.conf
 
     <IfModule security2_module>
-        # Default Debian dir for modsecurity's persistent data
-        SecDataDir /var/cache/modsecurity
-
-        # Include all the *.conf files in /etc/modsecurity.
-        # Keeping your local configuration in that directory
-        # will allow for an easy upgrade of THIS file and
-        # make your life easier
-        IncludeOptional /etc/modsecurity/*.conf
-        Include /etc/modsecurity/rules/*.conf
-
-        # Disable rules that block Nextcloud access
-        SecRuleRemoveById 980130        
-        SecRuleRemoveById 911100
+            # Default Debian dir for modsecurity's persistent data
+            SecDataDir /var/cache/modsecurity
+    
+            # Include all the *.conf files in /etc/modsecurity.
+            # Keeping your local configuration in that directory
+            # will allow for an easy upgrade of THIS file and
+            # make your life easier
+            IncludeOptional /etc/modsecurity/*.conf
+            Include /etc/modsecurity/rules/*.conf
+    
+            # Disable rules that block Nextcloud access (Rule 200002 specifically breaks file uploading)
+            SecRuleRemoveById 980120
+            SecRuleRemoveById 980130
+            SecRuleRemoveById 911100
+            SecRuleRemoveById 920350
+            SecRuleRemoveById 920300
+            SecRuleRemoveById 949110
+            SecRuleRemoveById 920230
+            SecRuleRemoveById 920420
+            SecRuleRemoveById 200002       
+    
+            # Maximum size of POST data 5 GB
+            SecRequestBodyLimit 5368709120 
+            
+            # Maximum size for requests without files 5 GB   
+            SecRequestBodyNoFilesLimit 5368709120
+    
+            # Maximum in memory data 1 MB
+            SecRequestBodyInMemoryLimit 1048576
+        
+            # Include OWASP ModSecurity CRS rules if installed
+            #IncludeOptional /usr/share/modsecurity-crs/*.load
     </IfModule>
     ```
 
