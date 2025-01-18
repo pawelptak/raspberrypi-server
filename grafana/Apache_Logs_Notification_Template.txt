@@ -1,0 +1,15 @@
+{{ define "warning-alert" -}}
+{{ len .Alerts }} alert(s)
+{{ range .Alerts -}}
+  {{ template "alert.summary_and_description" . -}}
+{{ end -}}
+{{ end -}}
+{{ define "alert.summary_and_description" }}
+  🚨 Warning
+  Summary: {{.Annotations.summary}}
+  Status: {{ .Status }}
+  Description: {{ .Annotations.description}}
+  {{ range .Labels.SortedPairs -}}
+  - {{ .Name }} = {{ .Value }}
+  {{ end }}
+{{ end -}}

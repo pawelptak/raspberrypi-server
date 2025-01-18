@@ -24,3 +24,17 @@ scrape_configs:
         labels:
           job: 'apache_access'
           __path__: /var/log/apache2/access.log
+    pipeline_stages:
+      - regex:
+          expression: '^(?P<client_ip>\S+) \S+ \S+ \[.*\] "\S+ \S+ \S+" \d+ \d+ ".*" ".*"$'
+      - geoip:
+          db: /GeoLite2_db/GeoLite2-City.mmdb
+          db_type: city
+          source: client_ip
+          target: geoip_data
+      - labels:
+          geo_country: '{{ .geoip_data.country.iso_code }}'
+          geo_region: '{{ .geoip_data.subdivisions.0.iso_code }}'
+          geo_city: '{{ .geoip_data.city.name }}'
+          geo_lat: '{{ .geoip_data.location.latitude }}'
+          geo_lon: '{{ .geoip_data.location.longitude }}'

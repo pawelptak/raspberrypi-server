@@ -15,12 +15,10 @@ services:
     volumes:
       - ./promtail-config.yaml:/etc/promtail/promtail.yaml
       - /var/log/apache2:/var/log/apache2
+      - /mnt/ssd/GeoLite2_db:/GeoLite2_db
     networks:
       - monitoring
 
 networks:
   monitoring:
     driver: bridge
-
-volumes:
-  grafana_data:

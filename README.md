@@ -287,26 +287,30 @@ To enable HTTPS you need to have a domain configured. You can get one for free f
 ### (Optional) Configure Grafana monitoring of ModSecurity logs
 Loki and Promtail have been used to fetch logs from ModSecurity and pass them to Grafana to create a panel showing suspicious traffic and send nofications alerting about it.
 
-1. Set up loki and promtail using the docker-compose file from the `loki` directory:
+1. Edit the docker-compose file from the `loki` directory. Change the `/mnt/ssd/GeoLite2_db` path to match the folder that contains your GeoLite2-City database file (I got mine from https://github.com/P3TERX/GeoLite.mmdb).
+
+2. Set up loki and promtail using the docker-compose file:
     ```
     docker compose up -d
     ```
 
-2. Go to Grafana (`http://<machine-ip-address>:3000`) > `Data sources`. And add the loki database that is under `http://<machine-ip-address>:3100`.
+3. Go to Grafana (`http://<machine-ip-address>:3000`) > `Data sources`. And add the loki database that is under `http://<machine-ip-address>:3100`.
 
-3. Create a new Dashboard with loki as the data source and pass the following query: `{job="modsec"} |~ "ModSecurity: (Warning|Emergency|Alert|Critical)"`. Select the "Logs" dashboard type. This dashboard will allow you to monitor any suspucious traffic on you Apache2 server.
+4. Import the dashboards to Grafana by using .json files from the `grafana` directory OR in your dashboard create a new panel with loki as the data source and pass the following query: `{job="modsec"} |~ "ModSecurity: (Warning|Emergency|Alert|Critical)"`. Select the "Logs" dashboard type. This dashboard will allow you to monitor any suspucious traffic on you Apache2 server.
 
-4. In Grafana go to `Alert rules` > `New alert rule`. 
+5. Import the alert rule to Grafana by using .json file from the `grafana` directory OR in Grafana go to `Alert rules` > `New alert rule`. 
     - Set a name for the rule.
     - Under queries select `Code` and paste the following query: `sum by (ip, message)(count_over_time({job="modsec"} |~ "ModSecurity: (Warning|Emergency|Alert|Critical)" | pattern "<_> [<_> <_>] [<_> <_>] [<_> <_>] [<_> <ip>] <message>" [5m]))`.
     - Under `Expressions` > `Threshold`, select `Input A IS ABOVE 0`.
-    - Under `3. Set evaluation behavior` create a folder and evaluation group with the names of your liking. Pending period can be set to 5m.
+    - Under `3. Set evaluation behavior` create a folder and evaluation group with the names of your liking. Pending period can be set to 1m. Also set the "no data and error handling" to maintain alert state "OK" when there is no data.
     - Under `5. Add annotations` you can set some summary for your alert which will be seen in the notification message.
     - Save the alert rule.
 
-5. In Grafana go to `Contact points` > `Add contact point`. I created a Telegram contact point. Configuring it is pretty straightforward, just start with https://t.me/botfather.
+6. In Grafana go to `Contact points` > `Notification Templates` > `Add notification template`. Paste in the contents of `Apache_Logs_Notification_Template.txt` from the `grafana` directory and save the changes.
 
-6. In Grafana go to `Notification policies` and create or edit the Default policy to point to the contact point created in the previous step. After that you will receive notifications about suspicious traffic on your Apache2 server.
+7. Import the contact point to Grafana by using .json file from the `grafana` directory OR in Grafana go to `Contact points` > `Add contact point`. I created a Telegram contact point. Configuring it is pretty straightforward, just start with https://t.me/botfather. In the `Message` field use the name from the notification template: `{{ template "warning-alert" . -}}`. Under `Notification settings` I checked the box to not fire the alert on "resolved" state.
+
+8. In Grafana go to `Notification policies` and create or edit the Default policy to point to the contact point created in the previous step. After that you will receive notifications about suspicious traffic on your Apache2 server.
 
 # GoAccess
 [GoAccess](https://goaccess.io/) is a web log analyzer that allows you to analyze the trafic from your server trough the web browser. In this case it is used to analyze Apache2 server logs.
