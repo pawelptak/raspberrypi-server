@@ -169,3 +169,30 @@ Loki and Promtail have been used to fetch logs from ModSecurity and pass them to
 7. In Grafana go to `Contact points` > `Add contact point`. I created a Telegram contact point. Configuring it is pretty straightforward, just start with https://t.me/botfather. In the `Message` field use the name from the notification template: `{{ template "warning-alert" . -}}`. Under `Notification settings` I checked the box to not fire the alert on "resolved" state.
 
 8. In Grafana go to `Notification policies` and create or edit the Default policy to point to the contact point created in the previous step. After that you will receive notifications about suspicious traffic on your Apache2 server.
+
+
+### (Optional) Block access to your server from certain countries
+To block access to the server from specific countries using the GeoIP data the [mod_maxminddb](https://github.com/maxmind/mod_maxminddb) Apache module can be used.
+
+1. Install the MaxMind DB Apache Module module. Download the latest version from download latest from: https://github.com/maxmind/mod_maxminddb/releases (.tar.gz) and use the following commands:
+
+```
+tar -xvzf mod_maxminddb-1.2.0.tar.gz
+cd mod_maxminddb-1.2.0
+./configure
+sudo make install
+```
+
+2. Edit your Apache site config that's in `/etc/apache2/sites-available/your-config.conf`. Add the following lines:
+```
+MaxMindDBEnable On
+MaxMindDBFile DB /mnt/ssd/GeoLite2_db/GeoLite2-City.mmdb
+MaxMindDBEnv MM_COUNTRY_CODE DB/country/iso_code
+
+SetEnvIf MM_COUNTRY_CODE ^(AL|AD|AT|BY|BE|BA|BG|HR|CY|CZ|DK|EE|FI|FR|DE|GR|HU|IS|IE|IT|LV|LI|LT|LU|MT|MD|MC|ME|NL|MK|NO|PT|RO|RU|SM|RS|SK|SI|ES|SE|CH|TR|UA|VA|GB|XK|PL)$ AllowCountry
+<Location />
+    Deny from all
+    Allow from env=AllowCountry
+</Location>
+```
+Edit the path after `MaxMindDBFile` to point to your GeoLite2-City.mmdb file. Adjust the `MM_COUNTRY_CODE` value to your liking. The provided example will allow all countries from Europe.
