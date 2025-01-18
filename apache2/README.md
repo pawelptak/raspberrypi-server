@@ -174,7 +174,12 @@ Loki and Promtail have been used to fetch logs from ModSecurity and pass them to
 ### (Optional) Block access to your server from certain countries
 To block access to the server from specific countries using the GeoIP data the [mod_maxminddb](https://github.com/maxmind/mod_maxminddb) Apache module can be used.
 
-1. Install the MaxMind DB Apache Module module. Download the latest version from download latest from: https://github.com/maxmind/mod_maxminddb/releases (.tar.gz) and use the following commands:
+1. Install required libraries:
+```
+sudo apt install apache2 libmaxminddb0 libmaxminddb-dev mmdb-bin
+``` 
+
+2. Install the MaxMind DB Apache Module module. Download the latest version from download latest from: https://github.com/maxmind/mod_maxminddb/releases (.tar.gz) and use the following commands:
 
 ```
 tar -xvzf mod_maxminddb-1.2.0.tar.gz
@@ -183,7 +188,7 @@ cd mod_maxminddb-1.2.0
 sudo make install
 ```
 
-2. Edit your Apache site config that's in `/etc/apache2/sites-available/your-config.conf`. Add the following lines:
+3. Edit your Apache site config that's in `/etc/apache2/sites-available/your-config.conf`. Add the following lines:
 ```
 MaxMindDBEnable On
 MaxMindDBFile DB /mnt/ssd/GeoLite2_db/GeoLite2-City.mmdb
