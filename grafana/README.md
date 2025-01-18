@@ -22,6 +22,8 @@
     - In the Grafana web interface go to `Connections` and add a new one with the address `http://<machine-ip-address>:9090`.
 
 5. Create the data dashboard:
-    - In the Grafana web interface go to `Dashboards` > `New` > `Import` and upload the JSON file form the `grafana` directory.
+    - In the Grafana web interface go to `Dashboards` > `New` > `Import` and upload the `RaspberryPi_Monitoring_Dashboard.json` file form the `grafana` directory.
 
-    _(For the "SSD Storage" visualizations you might need to adjust the queries used to retrieve the data. For that edit a specific dashboard element and adjust the `mountpoint` and `device` values of each query according to your setup.)_ 
+    _Note 1: For the "SSD Storage" visualizations you might need to adjust the queries used to retrieve the data. For that edit a specific dashboard element and adjust the `mountpoint` and `device` values of each query according to your setup._ 
+
+    _Note 2: The Apache logs visualizations won't work unless you configure ModSecurity in [this](../apache2/README.md#optional-secure-apache2-server-against-attacks) section of the Apache2 readme._ 
