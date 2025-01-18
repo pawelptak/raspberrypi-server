@@ -43,9 +43,9 @@ To be able to use all the services remotely [PiVPN](pivpn/README.md) can be used
     ```
 And add the following line (this will run daily at 3:00 AM):
 
-`0 3 * * * rsync -av --delete /home/pi/myfolder/ /mnt/backupdrive/mybackup/`
+`0 3 * * * rsync -av --delete /home/pi/myfolder/ /mnt/backupdrive/mybackup/ >> /path/to/log/folder/backup_log.log 2>&1`
 
-More info on the cron syntax [here](https://crontab.guru/).
+If something fails check the `backup_log.log` file. More info on the cron syntax [here](https://crontab.guru/).
 
 ## Immich
 In the `immich` folder you got the .env file and there: `UPLOAD_LOCATION` with all the photos and `DB_DATA_LOCATION` that has the paths to the photos. Both have to be backuped. The database is automatically backuped in `UPLOAD_LOCATION\backups` ([source](https://immich.app/docs/administration/backup-and-restore/#automatic-database-backups)). To create a backup of Immich db and the media files on a separate drive, you need to perform the following steps:
@@ -65,7 +65,7 @@ In the `immich` folder you got the .env file and there: `UPLOAD_LOCATION` with a
     ```
     Add the following line (this will run daily at 2:00 AM):
 
-    `0 2 * * * /path/to/your/immich-borg-setup.sh`
+    `0 2 * * * /path/to/your/immich-borg-setup.sh >> /path/to/log/folder/backup_log.log 2>&1`
 
 5. Make the script executable:
     ```
