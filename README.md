@@ -133,6 +133,10 @@ To do it you have to set up [Apache2 with HTTPS](#enable-https) first.
       ```
       'overwriteprotocol' => 'https',
       ```
+    - Add your local IP to the `'trusted_proxies'`. In my case it's:
+      ```
+      'trusted_proxies' => ['192.168.1.21'],
+      ```
 
 3. Restart Apache2 and Nextcloud:
     ```
@@ -260,25 +264,49 @@ To enable HTTPS you need to have a domain configured. You can get one for free f
     sudo nano /etc/apache2/mods-enabled/security2.conf
 
     <IfModule security2_module>
-        # Default Debian dir for modsecurity's persistent data
-        SecDataDir /var/cache/modsecurity
-
-        # Include all the *.conf files in /etc/modsecurity.
-        # Keeping your local configuration in that directory
-        # will allow for an easy upgrade of THIS file and
-        # make your life easier
-        IncludeOptional /etc/modsecurity/*.conf
-        Include /etc/modsecurity/rules/*.conf
+            # Default Debian dir for modsecurity's persistent data
+            SecDataDir /var/cache/modsecurity
+    
+            # Include all the *.conf files in /etc/modsecurity.
+            # Keeping your local configuration in that directory
+            # will allow for an easy upgrade of THIS file and
+            # make your life easier
+            IncludeOptional /etc/modsecurity/*.conf
+            Include /etc/modsecurity/rules/*.conf
+    
+            # Disable rules that block Nextcloud access (Rule 200002 specifically breaks file uploading)
+            SecRuleRemoveById 980120
+            SecRuleRemoveById 980130
+            SecRuleRemoveById 911100
+            SecRuleRemoveById 920350
+            SecRuleRemoveById 920300
+            SecRuleRemoveById 949110
+            SecRuleRemoveById 920230
+            SecRuleRemoveById 920420
+            SecRuleRemoveById 200002       
+    
+            # Maximum size of POST data 5 GB
+            SecRequestBodyLimit 5368709120 
+            
+            # Maximum size for requests without files 5 GB   
+            SecRequestBodyNoFilesLimit 5368709120
+    
+            # Maximum in memory data 1 MB
+            SecRequestBodyInMemoryLimit 1048576
+        
+            # Include OWASP ModSecurity CRS rules if installed
+            #IncludeOptional /usr/share/modsecurity-crs/*.load
     </IfModule>
     ```
+5. (Optional) Enable DoS Protection. Edit the `/etc/modsecurity/crs-setup.conf` and find the `[[ Anti-Automation / DoS Protection ]]` section. The default is blocking more than 100 requests in 60 seconds for 600 seconds. Uncomment the rule below and adjust the values to your liking.
 
-5. Switch ModSecurity to blocking mode:
+6. Switch ModSecurity to blocking mode:
     ```
     sudo nano /etc/modsecurity/modsecurity.conf
     ```
     Change the line `SecRuleEngine DetectionOnly` to `SecRuleEngine On` and save the changes.
 
-6. Restart Apache2:
+7. Restart Apache2:
     ```
     systemctl restart apache2
     ```
