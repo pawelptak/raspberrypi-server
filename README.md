@@ -236,6 +236,9 @@ To enable HTTPS you need to have a domain configured. You can get one for free f
     ```
     Your content will be available on `https://<machine-ip-address>/content`.
 
+## (Optional) Change Apache2 default access log retention policy
+By default Apache logs the users that access your server in `/var/log/apache2` in the file that start with `access.log`. By default it logs daily traffic and after each day creates a new log file, while keeping 14 such files max. This behavour can be modified in `/etc/logrotate.d/apache2`. I changed it to log `weekly` and keep `4` files.
+
 ## (Optional) Secure Apache2 server against attacks
 [ModSecurity](https://github.com/owasp-modsecurity/ModSecurity) will be used to secure the Apache2 server against malicious attacks.
 
