@@ -336,7 +336,7 @@ Loki and Promtail have been used to fetch logs from ModSecurity and pass them to
 
 6. In Grafana go to `Contact points` > `Notification Templates` > `Add notification template`. Paste in the contents of `Apache_Logs_Notification_Template.txt` from the `grafana` directory and save the changes.
 
-7. Import the contact point to Grafana by using .json file from the `grafana` directory OR in Grafana go to `Contact points` > `Add contact point`. I created a Telegram contact point. Configuring it is pretty straightforward, just start with https://t.me/botfather. In the `Message` field use the name from the notification template: `{{ template "warning-alert" . -}}`. Under `Notification settings` I checked the box to not fire the alert on "resolved" state.
+7. In Grafana go to `Contact points` > `Add contact point`. I created a Telegram contact point. Configuring it is pretty straightforward, just start with https://t.me/botfather. In the `Message` field use the name from the notification template: `{{ template "warning-alert" . -}}`. Under `Notification settings` I checked the box to not fire the alert on "resolved" state.
 
 8. In Grafana go to `Notification policies` and create or edit the Default policy to point to the contact point created in the previous step. After that you will receive notifications about suspicious traffic on your Apache2 server.
 
