@@ -113,7 +113,8 @@ By default Apache logs the users that access your server in `/var/log/apache2` i
             SecRuleRemoveById 949110
             SecRuleRemoveById 920230
             SecRuleRemoveById 920420
-            SecRuleRemoveById 200002       
+            SecRuleRemoveById 200002
+            SecRuleRemoveById 942100    
     
             # Maximum size of POST data 5 GB
             SecRequestBodyLimit 5368709120 
