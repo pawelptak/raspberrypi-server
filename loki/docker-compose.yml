@@ -6,6 +6,7 @@ services:
       - "3100:3100"
     networks:
       - monitoring
+    restart: always
 
   promtail:
     image: grafana/promtail:2.8.0
@@ -18,6 +19,7 @@ services:
       - /mnt/ssd/GeoLite2_db:/GeoLite2_db
     networks:
       - monitoring
+    restart: always
 
 networks:
   monitoring:
