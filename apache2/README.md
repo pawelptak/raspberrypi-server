@@ -63,6 +63,16 @@ To enable HTTPS you need to have a domain configured. You can get one for free f
     ```
     Your content will be available on `https://<machine-ip-address>/content`.
 
+6. Set up automatic certificate renewal:
+    ```
+    sudo crontab -e  
+    ```
+    Add the following line:
+   ```
+   0 3 * * * certbot renew --quiet --deploy-hook "systemctl reload apache2"
+   ```
+   This will run daily at 3 AM. and renew the certificate if its close expiry, then it will reload the server. Save and exit the file.
+
 ## (Optional) Change Apache2 default access log retention policy
 By default Apache logs the users that access your server in `/var/log/apache2` in the file that start with `access.log`. By default it logs daily traffic and after each day creates a new log file, while keeping 14 such files max. This behavour can be modified in `/etc/logrotate.d/apache2`. I changed it to log `weekly` and keep `4` files.
 
