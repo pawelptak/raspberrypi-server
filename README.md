@@ -8,3 +8,5 @@
 `sudo apt-get clean`
 
 `sudo bash -c 'rm /var/lib/snapd/cache/*'` -- clean snap cache
+
+Set journal logs max size: https://unix.stackexchange.com/a/130802
