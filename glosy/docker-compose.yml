@@ -1,0 +1,12 @@
+services:
+  clipyt:
+    container_name: glosy
+    image: pawelptak/glosy:latest
+    ports:
+      - "2139:8080"
+    restart: always
+    environment:
+      - APP_VERSION=${APP_VERSION}
+      - TTS_HOME=/app/PythonScripts/TTS/models
+    volumes:
+      - /mnt/ssd/tts_models:/app/PythonScripts/TTS/models

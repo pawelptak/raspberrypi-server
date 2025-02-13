@@ -11,6 +11,7 @@ Self hosting various services on Raspberry Pi 5
 - [Apache2](apache2/README.md)
 - [GoAccess](goaccess/README.md)
 - [ClipYT](clipyt/README.md)
+- [Glosy](glosy/README.md)
 - [Navidrome](navidrome/README.md)
 
 # Prerequisites
