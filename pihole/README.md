@@ -22,3 +22,8 @@
     - or set it up in your Wi-Fi network settings on your client device.
 
 7. To have the ad blocking working from outside your local network you should probably omit Point 6. of the [PiVPN](../README.md#remote-access-from-outside-local-network) installation (haven't tried it).
+8. (Optional) Edit the pihole config to set the log retention time:
+    ```
+    sudo nano etc-pihole/pihole-FTL.conf
+    ```
+    Add the following line: `MAXDBDAYS=1` and save the changes. Then `docker restart pihole`.
