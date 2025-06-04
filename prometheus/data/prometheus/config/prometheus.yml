@@ -20,5 +20,5 @@ scrape_configs:
     # scheme defaults to 'http'.
 
     static_configs:
-      - targets: ['localhost:9090', 'node-exporter:9100', 'cadvisor:8082']
+      - targets: ['localhost:9090', 'node-exporter:9100', 'cadvisor:8082', 'qbittorrent-exporter:17871']
 
