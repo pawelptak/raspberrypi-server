@@ -4,6 +4,8 @@ services:
   nextcloud:
     image: nextcloud
     container_name: nextcloud
+    environment:
+      - APACHE_BODY_LIMIT=10737418240   # 10 GB
     ports:
       - 8080:80
     volumes:
