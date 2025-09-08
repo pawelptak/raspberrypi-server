@@ -1662,7 +1662,7 @@
             "uid": "cdlrrwac9bg8we"
           },
           "editorMode": "code",
-          "expr": "(node_filesystem_size_bytes{mountpoint=\"/mnt/ssd\", device=\"/dev/sdb\"} \r\n - node_filesystem_avail_bytes{mountpoint=\"/mnt/ssd\", device=\"/dev/sdb\"})\r\n / 1024 / 1024 / 1024\r\n",
+          "expr": "(node_filesystem_size_bytes{mountpoint=\"/mnt/ssd\"} \r\n - node_filesystem_avail_bytes{mountpoint=\"/mnt/ssd\"})\r\n / 1024 / 1024 / 1024\r\n",
           "hide": false,
           "instant": false,
           "legendFormat": "__auto",
@@ -1675,7 +1675,7 @@
             "uid": "cdlrrwac9bg8we"
           },
           "editorMode": "code",
-          "expr": "node_filesystem_size_bytes{mountpoint=\"/mnt/ssd\", device=\"/dev/sdb\"} / 1024 / 1024 / 1024\r\n",
+          "expr": "node_filesystem_size_bytes{mountpoint=\"/mnt/ssd\"} / 1024 / 1024 / 1024\r\n",
           "hide": false,
           "instant": false,
           "legendFormat": "__auto",
@@ -1688,12 +1688,15 @@
         {
           "id": "configFromData",
           "options": {
+            "applyTo": {
+              "id": "byType",
+              "options": "number"
+            },
             "configRefId": "Total Disk Space",
             "mappings": [
               {
-                "fieldName": "{device=\"/dev/sdb\", fstype=\"ext4\", instance=\"node-exporter:9100\", job=\"node-exporter\", mountpoint=\"/mnt/ssd\"}",
-                "handlerKey": "max",
-                "reducerId": "lastNotNull"
+                "fieldName": "{device=\"/dev/sdc\", fstype=\"ext4\", instance=\"node-exporter:9100\", job=\"node-exporter\", mountpoint=\"/mnt/ssd\"}",
+                "handlerKey": "max"
               }
             ]
           }
@@ -3689,5 +3692,5 @@
   "timezone": "browser",
   "title": "RaspberryPi Monitoring",
   "uid": "rYdddlPWk",
-  "version": 22
+  "version": 23
 }
