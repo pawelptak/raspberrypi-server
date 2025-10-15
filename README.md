@@ -13,6 +13,7 @@ Self hosting various services on Raspberry Pi 5
 - [ClipYT](clipyt/README.md)
 - [Glosy](glosy/README.md)
 - [Navidrome](navidrome/README.md)
+- [Home Assistant](homeassistant/README.md)
 
 # Prerequisites
 - [Docker](https://docs.docker.com/get-docker/)
