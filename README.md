@@ -8,5 +8,5 @@
 30 3 * * 0 docker system prune -a -f && truncate -s 0 /var/lib/docker/containers/*/*-json.log && apt-get clean && journalctl --vacuum-size=500M && truncate -s 0 /home/raspberrypi/ApkiPawla/pihole/etc-pihole/pihole-FTL.db
 
 # copy home assistant backup files to second ssd
-0 4 * * * rsync -av --ignore-existing /mnt/ssd/homeassistant/backups/ /mnt/ssd_backup/homeassistant_backup/ >> /home/raspberrypi/ApkiPawla/homeassistant/backup_log.log 2>&1
+0 4 * * * rsync -av --delete /mnt/ssd/homeassistant/backups/ /mnt/ssd_backup/homeassistant_backup/ >> /home/raspberrypi/ApkiPawla/homeassistant/backup_log.log 2>&1
 ```
