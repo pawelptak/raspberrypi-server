@@ -17,7 +17,7 @@ Set journal logs max size: https://unix.stackexchange.com/a/130802
 
 `python -m pip cache purge` / `pip cache purge` -- clean pip cache
 
-clean apache logs
+clean apache logs:
 ```
 sudo rm -f /var/log/apache2/*.gz
 sudo rm -f /var/log/apache2/*.[0-9]
