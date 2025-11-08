@@ -16,3 +16,9 @@ Set journal logs max size: https://unix.stackexchange.com/a/130802
 `truncate -s 0 /home/raspberrypi/ApkiPawla/pihole/etc-pihole/pihole-FTL.db` -- clean pihole logs
 
 `python -m pip cache purge` / `pip cache purge` -- clean pip cache
+
+clean apache logs
+```
+sudo rm -f /var/log/apache2/*.gz
+sudo rm -f /var/log/apache2/*.[0-9]
+```
