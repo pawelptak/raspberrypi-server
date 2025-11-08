@@ -11,7 +11,7 @@
 
 Set journal logs max size: https://unix.stackexchange.com/a/130802
 
-`sudo journalctl --vacuum-size=500M` -- clean journal log size to have max 500M
+`sudo journalctl --vacuum-size=100M` -- clean journal log size to have max 100M
 
 `truncate -s 0 /home/raspberrypi/ApkiPawla/pihole/etc-pihole/pihole-FTL.db` -- clean pihole logs
 
