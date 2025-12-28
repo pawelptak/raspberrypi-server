@@ -1,0 +1,12 @@
+services:
+  grafana:
+    image: grafana/grafana-enterprise:latest
+    container_name: grafana
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      GF_AUTH_LOGIN_MAXIMUM_INACTIVE_LIFETIME_DURATION: 365d
+      GF_AUTH_LOGIN_MAXIMUM_LIFETIME_DURATION: 365d
+    volumes:
+      - /srv/grafana:/var/lib/grafana

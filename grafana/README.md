@@ -14,7 +14,7 @@
 
 3. Run the Grafana docker container
     ```
-    docker run -d -p 3000:3000 --name=grafana --restart=always grafana/grafana-enterprise
+    docker compose up -d
     ```
     The app is avaiable on `http://<machine-ip-address>:3000`
 
