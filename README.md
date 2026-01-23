@@ -6,6 +6,7 @@ Self hosting various services on Raspberry Pi 5
 - [Plex](plex/README.md)
 - [Grafana](grafana/README.md)
 - [qBittorrent](qbittorrent/README.md)
+- [Radarr](radarr/README.md)
 - [Nextcloud](nextcloud/README.md)
 - [Pi-hole](pihole/README.md)
 - [Apache2](apache2/README.md)
