@@ -1,5 +1,5 @@
 # Radarr
-[Radarr](https://github.com/Radarr/Radarr) a tool to automatically search for movie torrents. Also added [Sonarr](https://sonarr.tv) which is the same but for TV shows.
+[Radarr](https://github.com/Radarr/Radarr) a tool to automatically search for movie torrents. Also added [Sonarr](https://github.com/Sonarr/Sonarr) which is the same but for TV shows. And finally [Overserr](https://github.com/sct/overseerr) as an interface for them both.
 
 ## Installation
 1. Edit the `docker-compose.yml`: 
@@ -39,3 +39,9 @@ sudo chmod -R 775 /mnt/ssd_plex/movies
 14. Under `Settings` > `Indexers` add a new one and select `Torznab`, then go back to Jackett and for each indexer press the `Copy Torznab Feed` button, paste it into Sonarr. Also copy the API key from Jackett (YTS can be omitted).
 
 15. Under `Settings` > `Download Clients` add a new one and select `qBittorrent`. Under `Host` type in your `<machine-ip-address>`. Port is `8081` for me. Also fill in the qBittorrent username and password and save the changes.
+
+16. Go to the Overseerr web interface under `http://<machine-ip-address>:5055`.
+
+17. Select `Sign in with Plex`, sign in with your Plex account and configure the connection to your Plex server.
+
+18. Configure Radarr and Sonarr connections.
