@@ -20,7 +20,7 @@
 ### Radarr
 1. Go to the Radarr web interface under `http://<machine-ip-address>:9117`.
 
-2. Under `Settings` > `Media Management` select `Add Root Folder` and select the `downloads` folder.
+2. Under `Settings` > `Media Management` select `Add Root Folder` and select the `movies` folder.
 
 3. Under `Settings` > `Indexers` add a new one and select `Torznab`, then go back to Jackett and for each indexer press the `Copy Torznab Feed` button, paste it into Radarr. Also copy the API key from Jackett.
 
@@ -31,7 +31,7 @@
 ### Sonarr
 1. Go to the Sonarr web interface under `http://<machine-ip-address>:8989`.
 
-2. Under `Settings` > `Media Management` select `Add Root Folder` and select the `downloads` folder.
+2. Under `Settings` > `Media Management` select `Add Root Folder` and select the `shows` folder.
 
 3. Under `Settings` > `Indexers` add a new one and select `Torznab`, then go back to Jackett and for each indexer press the `Copy Torznab Feed` button, paste it into Sonarr. Also copy the API key from Jackett (YTS can be omitted).
 
