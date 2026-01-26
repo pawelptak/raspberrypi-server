@@ -9,12 +9,7 @@
     ```
     docker compose up -d
     ```
-
-3. Set correct permissions for Radarr:
-```
-sudo chown -R 1000:1000 /mnt/ssd_plex/movies
-sudo chmod -R 775 /mnt/ssd_plex/movies
-```
+	
 ### Jackett
 1. Go to the Jackett web interface under `http://<machine-ip-address>:9117`.
 
@@ -25,7 +20,7 @@ sudo chmod -R 775 /mnt/ssd_plex/movies
 ### Radarr
 1. Go to the Radarr web interface under `http://<machine-ip-address>:9117`.
 
-2. Under `Settings` > `Media Management` select `Add Root Folder` and select the `movies` folder.
+2. Under `Settings` > `Media Management` select `Add Root Folder` and select the `downloads` folder.
 
 3. Under `Settings` > `Indexers` add a new one and select `Torznab`, then go back to Jackett and for each indexer press the `Copy Torznab Feed` button, paste it into Radarr. Also copy the API key from Jackett.
 
@@ -36,7 +31,7 @@ sudo chmod -R 775 /mnt/ssd_plex/movies
 ### Sonarr
 1. Go to the Sonarr web interface under `http://<machine-ip-address>:8989`.
 
-2. Under `Settings` > `Media Management` select `Add Root Folder` and select the `tv` folder.
+2. Under `Settings` > `Media Management` select `Add Root Folder` and select the `downloads` folder.
 
 3. Under `Settings` > `Indexers` add a new one and select `Torznab`, then go back to Jackett and for each indexer press the `Copy Torznab Feed` button, paste it into Sonarr. Also copy the API key from Jackett (YTS can be omitted).
 
