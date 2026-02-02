@@ -71,3 +71,21 @@ services:
     depends_on:
       - radarr
       - sonarr
+      
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Warsaw
+    volumes:
+      - ./bazarr-config:/config
+      - /mnt/ssd_plex/content/movies:/movies
+      - /mnt/ssd_plex/content/shows:/shows
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+    depends_on:
+      - sonarr
+      - radarr
