@@ -2,20 +2,20 @@
 Self hosting various services on Raspberry Pi 5
 
 # Services
-- [immich](immich/README.md)
-- [Plex](plex/README.md)
-- [Grafana](grafana/README.md)
-- [qBittorrent](qbittorrent/README.md)
-- [Radarr](radarr/README.md)
-- [Nextcloud](nextcloud/README.md)
-- [Pi-hole](pihole/README.md)
-- [Apache2](apache2/README.md)
-- [GoAccess](goaccess/README.md)
-- [ClipYT](clipyt/README.md)
-- [Glosy](glosy/README.md)
-- [Navidrome](navidrome/README.md)
-- [Home Assistant](homeassistant/README.md)
-- [Watchtower](watchtower/README.md)
+- [immich](immich)
+- [Plex](plex)
+- [Grafana](grafana)
+- [qBittorrent](qbittorrent)
+- [Radarr](radarr)
+- [Nextcloud](nextcloud)
+- [Pi-hole](pihole)
+- [Apache2](apache2)
+- [GoAccess](goaccess)
+- [ClipYT](clipyt)
+- [Glosy](glosy)
+- [Navidrome](navidrome)
+- [Home Assistant](homeassistant)
+- [Watchtower](watchtower)
 
 # Prerequisites
 - [Docker](https://docs.docker.com/get-docker/)
@@ -24,7 +24,7 @@ Self hosting various services on Raspberry Pi 5
 
 
 # Remote access from outside local network
-To be able to use all the services remotely [PiVPN](pivpn/README.md) can be used.
+To be able to use all the services remotely [PiVPN](pivpn) can be used.
 
 # Data backup
 
