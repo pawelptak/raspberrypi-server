@@ -1,5 +1,5 @@
 # Radarr
-[Radarr](https://github.com/Radarr/Radarr) a tool to automatically search for movie torrents. Also added [Sonarr](https://github.com/Sonarr/Sonarr) which is the same but for TV shows. [Bazarr](https://github.com/morpheus65535/bazarr) is used for automatic subtitle handling. And finally [Overserr](https://github.com/sct/overseerr) as an interface for them both.
+[Radarr](https://github.com/Radarr/Radarr) is a tool to automatically search for movie torrents. Also added [Sonarr](https://github.com/Sonarr/Sonarr) which is the same but for TV shows. [Bazarr](https://github.com/morpheus65535/bazarr) is used for automatic subtitle handling. And finally [Overserr](https://github.com/sct/overseerr) as an interface for them both.
 
 ## Installation
 1. Edit the `docker-compose.yml`: 

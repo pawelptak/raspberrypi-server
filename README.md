@@ -15,6 +15,7 @@ Self hosting various services on Raspberry Pi 5
 - [Glosy](glosy/README.md)
 - [Navidrome](navidrome/README.md)
 - [Home Assistant](homeassistant/README.md)
+- [Watchtower](watchtower/README.md)
 
 # Prerequisites
 - [Docker](https://docs.docker.com/get-docker/)
