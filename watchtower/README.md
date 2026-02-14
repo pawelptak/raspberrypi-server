@@ -1,5 +1,5 @@
 # Watchtower
-[Watchtower](https://github.com/nicholas-fedor/watchtower/) is a tool that can be used to get notified when any of the running docker images has an update available. I set it up to send me notifications via [Home Assistant](homeassistant).
+[Watchtower](https://github.com/nicholas-fedor/watchtower/) is a tool that can be used to get notified when any of the running docker images has an update available. I set it up to send me notifications via [Home Assistant](../homeassistant).
 
 ## Installation
 1. Edit the `docker-compose.yml`: 
