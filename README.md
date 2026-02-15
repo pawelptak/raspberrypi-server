@@ -15,6 +15,7 @@ Self hosting various services on Raspberry Pi 5
 - [Glosy](glosy)
 - [Navidrome](navidrome)
 - [Home Assistant](homeassistant)
+- [Diun](diun)
 
 # Prerequisites
 - [Docker](https://docs.docker.com/get-docker/)

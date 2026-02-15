@@ -1,0 +1,6 @@
+notif:
+  webhook:
+    endpoint: http://192.168.1.21:8123/api/webhook/docker_update
+    method: POST
+    headers:
+      content-type: application/json
