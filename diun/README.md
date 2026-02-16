@@ -1,7 +1,5 @@
 # Diun
-[Diun](https://github.com/crazy-max/diun) is a tool that can be used to get notified when any of the running docker images has an update available. I set it up to send me notifications via [Home Assistant](../homeassistant). 
-
-I also use [Cup](https://github.com/sergi0g/cup) as a web UI to visualize the state of container images. 
+[Diun](https://github.com/crazy-max/diun) is a tool that can be used to get notified when any of the running docker images has an update available. I set it up to send me notifications via [Home Assistant](../homeassistant).
 
 ## Installation
 1. Edit the `diun.yml`: 
@@ -38,4 +36,3 @@ mode: single
     ```
     docker compose up -d
     ```
-    Cup is running on `http://<machine-ip-address>:8000`.
