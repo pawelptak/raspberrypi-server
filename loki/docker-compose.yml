@@ -1,6 +1,6 @@
 services:
   loki:
-    image: grafana/loki:latest
+    image: grafana/loki:2.8.0
     container_name: loki
     ports:
       - "3100:3100"
@@ -9,7 +9,7 @@ services:
     restart: always
 
   promtail:
-    image: grafana/promtail:latest
+    image: grafana/promtail:2.8.0
     container_name: promtail
     command:
       - "-config.file=/etc/promtail/promtail.yaml"
