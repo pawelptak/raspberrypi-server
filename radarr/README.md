@@ -54,4 +54,4 @@
 
 5. Go to `Settings` > `Languages`. Put in some language filters, e.g. `Polish`. Add a language profile and select the preferred language.
 
-6. Go to `Settings` > `Providers` and add some subtitle providers (some of them may lequire authentication). I chose: Napisy24, Napiprojekt, Opensubtitles.com, Subdl.
+6. Go to `Settings` > `Providers` and add some subtitle providers (some of them may lequire authentication). I chose: Napisy24, Napiprojekt, Opensubtitles.com, Subdl, Supersubtitles, TVSubtitles, YIFY Subtitles, Podnapisi, subf2m.co, Gestdown (Addic7ed proxy).
