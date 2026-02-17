@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   prometheus:
     image: prom/prometheus:latest
@@ -32,7 +30,7 @@ services:
       - monitoring
 
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.49.1
+    image: gcr.io/cadvisor/cadvisor:latest
     container_name: monitoring_cadvisor
     restart: unless-stopped
     command:
