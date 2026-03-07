@@ -11,3 +11,7 @@
     ```
 
     The app is avaiable on `http://<machine-ip-address>:2283`
+
+
+## Backup 
+The `immich-borg-setup.sh` is used for generating backup of the Immich database and media. More info here https://docs.immich.app/guides/template-backup-script/.
