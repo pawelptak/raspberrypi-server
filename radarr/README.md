@@ -1,5 +1,5 @@
 # Radarr
-[Radarr](https://github.com/Radarr/Radarr) is a tool to automatically search for movie torrents. Also added [Sonarr](https://github.com/Sonarr/Sonarr) which is the same but for TV shows. [Bazarr](https://github.com/morpheus65535/bazarr) is used for automatic subtitle handling. And finally [Overserr](https://github.com/sct/overseerr) as an interface for them both.
+[Radarr](https://github.com/Radarr/Radarr) is a tool to automatically search for movie torrents. Also added [Sonarr](https://github.com/Sonarr/Sonarr) which is the same but for TV shows. [Bazarr](https://github.com/morpheus65535/bazarr) is used for automatic subtitle handling. And finally [Seerr](https://github.com/seerr-team/seerr) as an interface for them both.
 
 ## Installation
 1. Edit the `docker-compose.yml`: 
@@ -35,8 +35,8 @@
 
 3. Under `Settings` > `Download Clients` add a new one and select `qBittorrent`. Under `Host` type in your `<machine-ip-address>`. Port is `8081` for me. Also fill in the qBittorrent username and password and save the changes.
 
-### Overseerr
-1. Go to the Overseerr web interface under `http://<machine-ip-address>:5055`.
+### Seerr
+1. Go to the Seerr web interface under `http://<machine-ip-address>:5055`.
 
 2. Select `Sign in with Plex`, sign in with your Plex account and configure the connection to your Plex server.
 
