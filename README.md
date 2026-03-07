@@ -2,6 +2,7 @@
 0 3 * * * rsync -av --delete /mnt/ssd/nextcloud/data/admin/files /mnt/ssd_backup/nextcloud_backup >> /home/raspberrypi/ApkiPawla/nextcloud/backup_log.log 2>&1
 0 3 * * * certbot renew --quiet --deploy-hook "systemctl reload apache2"
 0 2 * * * /home/raspberrypi/ApkiPawla/immich/immich-borg-setup.sh >> /home/raspberrypi/ApkiPawla/immich/backup_log.log 2>&1
+0 10 * * 0 /home/raspberrypi/ApkiPawla/immich/immich-borg-remote.sh >> /home/raspberrypi/ApkiPawla/immich/backup_remote.log 2>&1
 0 1 1 * * /home/raspberrypi/ApkiPawla/goaccess/update-geo-db.sh
 
 # space cleanup every sunday 3:30 AM
