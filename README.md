@@ -4,6 +4,7 @@ Self hosting various services on Raspberry Pi 5
 # Services
 - [immich](immich)
 - [Plex](plex)
+- [Jellyfin](jellyfin)
 - [Grafana](grafana)
 - [qBittorrent](qbittorrent)
 - [Radarr](radarr)
