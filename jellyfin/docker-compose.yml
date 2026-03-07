@@ -1,0 +1,18 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Warsaw
+     #  - JELLYFIN_PublishedServerUrl=http://192.168.1.XX
+    volumes:
+      - ./jellyfin-config:/config
+      - /mnt/ssd_plex/content/movies:/data/movies
+      - /mnt/ssd_plex/content/shows:/data/shows
+    ports:
+      - 8096:8096
+   #  devices:
+    #   - /dev/dri:/dev/dri   # hardware transcoding (Intel Quick Sync)
+    restart: unless-stopped
