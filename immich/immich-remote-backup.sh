@@ -20,6 +20,9 @@ curl -s -X POST -H "Authorization: Bearer $HA_TOKEN" \
      -d "{\"message\": \"Immich backup started at $START_DATE\", \"title\": \"Immich Backup\"}" \
      $HA_URL
 
+# Backup Immich database -- commented out, because this is already done by `immich-borg-setup.sh`
+# docker exec -t immich_postgres pg_dumpall --clean --if-exists --username=postgres > "$UPLOAD_LOCATION"/database-backup/immich-database.sql
+
 # Create archive and check if it succeeds
 if borg create "$BACKUP_PATH/immich-borg::{now}" "$UPLOAD_LOCATION" \
         --exclude "$UPLOAD_LOCATION"/thumbs/ \
