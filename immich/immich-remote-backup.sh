@@ -13,6 +13,8 @@ REPO_NAME="immich-borg"
 # SSH options for non-interactive cron
 export BORG_RSH="ssh -i /home/raspberrypi/.ssh/wsl_key -p 2222 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 
+echo "$(date) Starting Immich remote backup"
+
 # Backup Immich database - commented out since this is already done by the immich-borg-setup.sh
 # docker exec -t immich_postgres pg_dumpall --clean --if-exists --username=postgres > "$UPLOAD_LOCATION"/database-backup/immich-database.sql
 
@@ -23,3 +25,5 @@ borg create "ssh://$REMOTE_USER@$REMOTE_HOST$REMOTE_BACKUP_PATH/$REPO_NAME::{now
 
 borg prune --keep-weekly=4 --keep-monthly=3 "ssh://$REMOTE_USER@$REMOTE_HOST$REMOTE_BACKUP_PATH/$REPO_NAME"
 borg compact "ssh://$REMOTE_USER@$REMOTE_HOST$REMOTE_BACKUP_PATH/$REPO_NAME"
+
+echo "$(date) Immich remote backup finished"
