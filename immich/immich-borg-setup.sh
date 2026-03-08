@@ -6,6 +6,8 @@ BACKUP_PATH="/mnt/ssd_backup/immich_backup"
 
 ### Local
 
+echo "$(date) Starting Immich local backup"
+
 # Backup Immich database
 docker exec -t immich_postgres pg_dumpall --clean --if-exists --username=postgres > "$UPLOAD_LOCATION"/database-backup/immich-database.sql
 # For deduplicating backup programs such as Borg or Restic, compressing the content can increase backup size by making it harder to deduplicate. If you are using a different program or still prefer to compress, you can use the following command instead:
@@ -15,3 +17,5 @@ docker exec -t immich_postgres pg_dumpall --clean --if-exists --username=postgre
 borg create "$BACKUP_PATH/immich-borg::{now}" "$UPLOAD_LOCATION" --exclude "$UPLOAD_LOCATION"/thumbs/ --exclude "$UPLOAD_LOCATION"/encoded-video/
 borg prune --keep-weekly=4 --keep-monthly=3 "$BACKUP_PATH"/immich-borg
 borg compact "$BACKUP_PATH"/immich-borg
+
+echo "$(date) Immich local backup finished"
