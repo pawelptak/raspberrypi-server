@@ -16,6 +16,8 @@
 ## Backup 
 The `immich-borg-setup.sh` is used for generating backup of the Immich database and media to a local backup location. More info here https://docs.immich.app/guides/template-backup-script/.
 
-`immich-remote-backup.sh` is used to do the same but to a remote Windows PC via SSH. Make sure to set up the SSH connection correctly: create a key pair, move the public key onto the WSL machine, set up port forwarding to access WSL (https://learn.arm.com/learning-paths/laptops-and-desktops/wsl2/ssh/).
+`immich-remote-backup.sh` is used to do the same but to a remote Windows PC via SMB. Make sure to set up the SMB sharing correctly, so that your server can access the folder on the remote machine. Also remember to set up the mountpoint in `/etc/fstab`.
+
+For the home assistant notifications to work, adjust the `HA_URL` and `HA_TOKEN` of both scripts.
 
 I run both scripts as cron jobs.

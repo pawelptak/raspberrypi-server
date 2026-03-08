@@ -2,24 +2,59 @@
 
 # Paths
 UPLOAD_LOCATION="/mnt/ssd/immich_from_windows"
+BACKUP_PATH="/mnt/backup_on_windows/immich_backup"
 
-# SSH to WSL/Windows
-REMOTE_USER="pawel"
-REMOTE_HOST="192.168.1.29"
-REMOTE_PORT=2222
-REMOTE_BACKUP_PATH="/mnt/p/backups_from_raspberry/immich_backup"
-REPO_NAME="immich-borg"
+# Home Assistant notify endpoint
+HA_URL="http://192.168.1.21:8123/api/services/notify/mobile_app_iwojtyla"
+HA_TOKEN=""
 
-# SSH options for non-interactive cron
-export BORG_RSH="ssh -i /home/raspberrypi/.ssh/wsl_key -p 2222 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+export BORG_RELOCATED_REPO_ACCESS_IS_OK=yes
+START_TIME=$(date +%s)
+START_DATE=$(date "+%Y-%m-%d %H:%M:%S")
 
-# Backup Immich database - commented out since this is already done by the immich-borg-setup.sh
-# docker exec -t immich_postgres pg_dumpall --clean --if-exists --username=postgres > "$UPLOAD_LOCATION"/database-backup/immich-database.sql
+echo "$START_DATE Starting Immich backup"
 
-# Append to remote Borg repository
-borg create "ssh://$REMOTE_USER@$REMOTE_HOST$REMOTE_BACKUP_PATH/$REPO_NAME::{now}" "$UPLOAD_LOCATION" \
-    --exclude "$UPLOAD_LOCATION"/thumbs/ \
-    --exclude "$UPLOAD_LOCATION"/encoded-video/
+# Notify start
+curl -s -X POST -H "Authorization: Bearer $HA_TOKEN" \
+     -H "Content-Type: application/json" \
+     -d "{\"message\": \"Immich backup started at $START_DATE\", \"title\": \"Immich Backup\"}" \
+     $HA_URL
 
-borg prune --keep-weekly=4 --keep-monthly=3 "ssh://$REMOTE_USER@$REMOTE_HOST$REMOTE_BACKUP_PATH/$REPO_NAME"
-borg compact "ssh://$REMOTE_USER@$REMOTE_HOST$REMOTE_BACKUP_PATH/$REPO_NAME"
+# Create archive and check if it succeeds
+if borg create "$BACKUP_PATH/immich-borg::{now}" "$UPLOAD_LOCATION" \
+        --exclude "$UPLOAD_LOCATION"/thumbs/ \
+        --exclude "$UPLOAD_LOCATION"/encoded-video/; then
+    
+    # If create succeeded, prune and compact
+    borg prune --keep-weekly=4 --keep-monthly=3 "$BACKUP_PATH"/immich-borg
+    borg compact "$BACKUP_PATH"/immich-borg
+
+    END_TIME=$(date +%s)
+    DURATION=$((END_TIME - START_TIME))
+
+    NOW=$(date "+%Y-%m-%d %H:%M:%S")
+
+    # Notify Home Assistant of success
+    curl -s -X POST -H "Authorization: Bearer $HA_TOKEN" \
+         -H "Content-Type: application/json" \
+         -d "{\"message\": \"Immich backup completed successfully in ${DURATION}s (finished at $NOW)\", \"title\": \"Immich Backup\"}" \
+         $HA_URL
+
+    echo "$NOW Immich local backup finished in ${DURATION}s"
+
+else
+    END_TIME=$(date +%s)
+    DURATION=$((END_TIME - START_TIME))
+
+    NOW=$(date "+%Y-%m-%d %H:%M:%S"
+
+)
+
+    # Notify Home Assistant of failure
+    curl -s -X POST -H "Authorization: Bearer $HA_TOKEN" \
+         -H "Content-Type: application/json" \
+         -d "{\"message\": \"Immich backup FAILED after ${DURATION}s (at $NOW)\", \"title\": \"Immich Backup\"}" \
+         $HA_URL
+
+    echo "$NOW Immich local backup FAILED after ${DURATION}s"
+fi
