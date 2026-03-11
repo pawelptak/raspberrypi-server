@@ -10,4 +10,7 @@
 
 # copy home assistant backup files to second ssd
 0 4 * * * rsync -av --delete /mnt/ssd/homeassistant/backups/ /mnt/ssd_backup/homeassistant_backup/ >> /home/raspberrypi/ApkiPawla/homeassistant/backup_log.log 2>&1
+
+# copy home assistant backup files to a remote ssd
+0 12 * * 0 rsync -av --delete /mnt/ssd/homeassistant/backups/ /mnt/backup_on_windows/homeassistant_backup/ >> /home/raspberrypi/ApkiPawla/homeassistant/backup_log.log 2>&1
 ```
