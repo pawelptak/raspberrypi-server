@@ -8,7 +8,7 @@ UUID=17d72394-d6f6-40a6-94a8-876f38bfb388 /mnt/ssd_backup ext4 defaults,nofail,x
 UUID=674b4b91-8aa9-475a-a891-301d6e929bc2  /mnt/ssd_plex  ext4  defaults,nofail,x-systemd.device-timeout=5s 0 2
 
 # Windows SMB backup share
-//192.168.1.29/backups_from_raspberry /mnt/backup_on_windows cifs username=twojstary,vers=3.0,uid=pi,gid=pi,nofail,x-systemd.automount,_netdev 0 0
+//192.168.1.29/backups_from_raspberry /mnt/backup_on_windows cifs username=twojstary,vers=3.0,nofail,x-systemd.automount,_netdev 0 0
 
 # a swapfile is not a swap partition, no line here
 #   use  dphys-swapfile swap[on|off]  for that
