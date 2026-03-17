@@ -9,7 +9,7 @@ Self hosting various services on Raspberry Pi 5
 - [qBittorrent](qbittorrent)
 - [Radarr](radarr)
 - [Nextcloud](nextcloud)
-- [Pi-hole](pihole)
+- [AdGuard Home](adguard)
 - [Apache2](apache2)
 - [GoAccess](goaccess)
 - [ClipYT](clipyt)
