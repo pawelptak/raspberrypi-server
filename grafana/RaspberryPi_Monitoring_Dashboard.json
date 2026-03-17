@@ -25,7 +25,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 1,
   "links": [
     {
       "icon": "external link",
@@ -67,6 +66,9 @@
                 "cellOptions": {
                   "type": "auto"
                 },
+                "footer": {
+                  "reducers": []
+                },
                 "inspect": false
               },
               "mappings": [],
@@ -74,7 +76,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": 0
                   },
                   {
                     "color": "red",
@@ -119,19 +122,11 @@
           "id": 350,
           "options": {
             "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "enablePagination": false,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
+            "enablePagination": false,
             "showHeader": true,
             "sortBy": []
           },
-          "pluginVersion": "11.6.0",
+          "pluginVersion": "12.4.1",
           "targets": [
             {
               "datasource": {
@@ -286,12 +281,14 @@
             "enableLogDetails": true,
             "prettifyLogMessage": false,
             "showCommonLabels": false,
+            "showControls": false,
             "showLabels": false,
             "showTime": false,
             "sortOrder": "Descending",
+            "unwrappedColumns": false,
             "wrapLogMessage": false
           },
-          "pluginVersion": "11.6.0",
+          "pluginVersion": "12.4.1",
           "targets": [
             {
               "datasource": {
@@ -356,12 +353,14 @@
             "enableLogDetails": true,
             "prettifyLogMessage": false,
             "showCommonLabels": false,
+            "showControls": false,
             "showLabels": false,
             "showTime": true,
             "sortOrder": "Descending",
+            "unwrappedColumns": false,
             "wrapLogMessage": false
           },
-          "pluginVersion": "11.6.0",
+          "pluginVersion": "12.4.1",
           "targets": [
             {
               "datasource": {
@@ -424,14 +423,15 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)"
+                "color": "green",
+                "value": 0
               },
               {
-                "color": "rgba(237, 129, 40, 0.89)",
+                "color": "orange",
                 "value": 85
               },
               {
-                "color": "rgba(245, 54, 54, 0.9)",
+                "color": "red",
                 "value": 95
               }
             ]
@@ -462,7 +462,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -472,7 +472,6 @@
           "editorMode": "code",
           "exemplar": false,
           "expr": "100 * (1 - avg(rate(node_cpu_seconds_total{mode=\"idle\", instance=\"$node\"}[$__rate_interval])))",
-          "hide": false,
           "instant": true,
           "intervalFactor": 1,
           "legendFormat": "",
@@ -489,33 +488,33 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Non available RAM memory",
+      "description": "How much storage is used",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "decimals": 1,
+          "fieldMinMax": false,
           "mappings": [],
-          "max": 100,
           "min": 0,
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)"
+                "color": "green",
+                "value": 0
               },
               {
-                "color": "rgba(237, 129, 40, 0.89)",
+                "color": "#EAB839",
                 "value": 80
               },
               {
-                "color": "rgba(245, 54, 54, 0.9)",
+                "color": "red",
                 "value": 90
               }
             ]
           },
-          "unit": "percent"
+          "unit": "decgbytes"
         },
         "overrides": []
       },
@@ -525,7 +524,7 @@
         "x": 3,
         "y": 2
       },
-      "id": 16,
+      "id": 323,
       "options": {
         "minVizHeight": 75,
         "minVizWidth": 75,
@@ -541,23 +540,19 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "cdlrrwac9bg8we"
           },
           "editorMode": "code",
-          "exemplar": false,
-          "expr": "((node_memory_MemTotal_bytes{instance=\"$node\", job=\"$job\"} - node_memory_MemFree_bytes{instance=\"$node\", job=\"$job\"}) / node_memory_MemTotal_bytes{instance=\"$node\", job=\"$job\"}) * 100",
-          "format": "time_series",
-          "hide": true,
-          "instant": true,
-          "intervalFactor": 1,
-          "range": false,
-          "refId": "A",
-          "step": 240
+          "expr": "(node_filesystem_size_bytes{mountpoint=\"/etc/hostname\",fstype!=\"rootfs\"} - node_filesystem_avail_bytes{mountpoint=\"/etc/hostname\",fstype!=\"rootfs\"}) / 1024 / 1024 / 1024",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "Used Disk Space"
         },
         {
           "datasource": {
@@ -565,18 +560,33 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "exemplar": false,
-          "expr": "(1 - (node_memory_MemAvailable_bytes{instance=\"$node\", job=\"$job\"} / node_memory_MemTotal_bytes{instance=\"$node\", job=\"$job\"})) * 100",
-          "format": "time_series",
-          "hide": false,
-          "instant": true,
-          "intervalFactor": 1,
-          "range": false,
-          "refId": "B",
-          "step": 240
+          "expr": "(node_filesystem_size_bytes{mountpoint=\"/etc/hostname\",fstype!=\"rootfs\"}) / 1024 / 1024 / 1024\r\n",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "Total Disk Space"
         }
       ],
-      "title": "RAM Used",
+      "title": "Disk Used",
+      "transformations": [
+        {
+          "id": "configFromData",
+          "options": {
+            "configRefId": "Total Disk Space",
+            "mappings": [
+              {
+                "fieldName": "{device=\"/dev/mmcblk0p2\", fstype=\"ext4\", instance=\"node-exporter:9100\", job=\"node-exporter\", mountpoint=\"/etc/hostname\"}",
+                "handlerKey": "max",
+                "reducerId": "lastNotNull"
+              },
+              {
+                "fieldName": "{device=\"/dev/sdc\", fstype=\"ext4\", instance=\"node-exporter:9100\", job=\"node-exporter\", mountpoint=\"/etc/hostname\"}",
+                "handlerKey": "max"
+              }
+            ]
+          }
+        }
+      ],
       "type": "gauge"
     },
     {
@@ -584,7 +594,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "System load  over all CPU cores together",
+      "description": "Used Root FS",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -608,15 +618,16 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)"
+                "color": "green",
+                "value": 0
               },
               {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 85
+                "color": "orange",
+                "value": 80
               },
               {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 95
+                "color": "red",
+                "value": 90
               }
             ]
           },
@@ -630,7 +641,7 @@
         "x": 6,
         "y": 2
       },
-      "id": 155,
+      "id": 154,
       "options": {
         "minVizHeight": 75,
         "minVizWidth": 75,
@@ -646,7 +657,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -655,9 +666,8 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "scalar(node_load1{instance=\"$node\",job=\"$job\"}) * 100 / count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu))",
+          "expr": "100 - ((node_filesystem_avail_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/etc/hostname\",fstype!=\"rootfs\"} * 100) / node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/etc/hostname\",fstype!=\"rootfs\"})",
           "format": "time_series",
-          "hide": false,
           "instant": true,
           "intervalFactor": 1,
           "range": false,
@@ -665,7 +675,7 @@
           "step": 240
         }
       ],
-      "title": "Sys Load",
+      "title": "% Disk Used",
       "type": "gauge"
     },
     {
@@ -697,14 +707,15 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)"
+                "color": "green",
+                "value": 0
               },
               {
-                "color": "rgba(237, 129, 40, 0.89)",
+                "color": "orange",
                 "value": 49.9998
               },
               {
-                "color": "rgba(245, 54, 54, 0.9)",
+                "color": "red",
                 "value": 60
               }
             ]
@@ -737,7 +748,7 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -748,7 +759,6 @@
           "exemplar": true,
           "expr": "node_thermal_zone_temp{type=\"cpu-thermal\"}",
           "format": "time_series",
-          "hide": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
@@ -794,6 +804,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -819,7 +830,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "orange",
@@ -860,7 +872,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -871,7 +883,6 @@
           "exemplar": false,
           "expr": "node_thermal_zone_temp{type=\"cpu-thermal\"}",
           "format": "time_series",
-          "hide": false,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "Temp",
@@ -882,196 +893,6 @@
       ],
       "title": "Temperature",
       "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "How much storage is used",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "#EAB839",
-                "value": 80
-              },
-              {
-                "color": "red",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "decgbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 0,
-        "y": 6
-      },
-      "id": 323,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
-      },
-      "pluginVersion": "11.6.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cdlrrwac9bg8we"
-          },
-          "editorMode": "code",
-          "expr": "(node_filesystem_size_bytes{mountpoint=\"/etc/hostname\",fstype!=\"rootfs\"} - node_filesystem_avail_bytes{mountpoint=\"/etc/hostname\",fstype!=\"rootfs\"}) / 1024 / 1024 / 1024",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "Used Disk Space"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "expr": "(node_filesystem_size_bytes{mountpoint=\"/etc/hostname\",fstype!=\"rootfs\"}) / 1024 / 1024 / 1024\r\n",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "Total Disk Space"
-        }
-      ],
-      "title": "Disk Used",
-      "transformations": [
-        {
-          "id": "configFromData",
-          "options": {
-            "configRefId": "Total Disk Space",
-            "mappings": [
-              {
-                "fieldName": "{device=\"/dev/mmcblk0p2\", fstype=\"ext4\", instance=\"node-exporter:9100\", job=\"node-exporter\", mountpoint=\"/etc/hostname\"}",
-                "handlerKey": "max"
-              }
-            ]
-          }
-        }
-      ],
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "Used Root FS",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 1,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)"
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 80
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 3,
-        "y": 6
-      },
-      "id": 154,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
-      },
-      "pluginVersion": "11.6.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "100 - ((node_filesystem_avail_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/etc/hostname\",fstype!=\"rootfs\"} * 100) / node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/etc/hostname\",fstype!=\"rootfs\"})",
-          "format": "time_series",
-          "instant": true,
-          "intervalFactor": 1,
-          "range": false,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "% Disk Used",
-      "type": "gauge"
     },
     {
       "datasource": {
@@ -1102,14 +923,15 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)"
+                "color": "green",
+                "value": 0
               },
               {
-                "color": "rgba(237, 129, 40, 0.89)",
+                "color": "orange",
                 "value": 10
               },
               {
-                "color": "rgba(245, 54, 54, 0.9)",
+                "color": "red",
                 "value": 25
               }
             ]
@@ -1121,7 +943,7 @@
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 6,
+        "x": 0,
         "y": 6
       },
       "id": 21,
@@ -1140,7 +962,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -1158,6 +980,190 @@
         }
       ],
       "title": "SWAP Used",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "System load  over all CPU cores together",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "orange",
+                "value": 85
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 6
+      },
+      "id": 155,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "12.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "scalar(node_load1{instance=\"$node\",job=\"$job\"}) * 100 / count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu))",
+          "format": "time_series",
+          "instant": true,
+          "intervalFactor": 1,
+          "range": false,
+          "refId": "A",
+          "step": 240
+        }
+      ],
+      "title": "Sys Load",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Non available RAM memory",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "orange",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 6,
+        "y": 6
+      },
+      "id": 16,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "12.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "((node_memory_MemTotal_bytes{instance=\"$node\", job=\"$job\"} - node_memory_MemFree_bytes{instance=\"$node\", job=\"$job\"}) / node_memory_MemTotal_bytes{instance=\"$node\", job=\"$job\"}) * 100",
+          "format": "time_series",
+          "hide": true,
+          "instant": true,
+          "intervalFactor": 1,
+          "range": false,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(1 - (node_memory_MemAvailable_bytes{instance=\"$node\", job=\"$job\"} / node_memory_MemTotal_bytes{instance=\"$node\", job=\"$job\"})) * 100",
+          "format": "time_series",
+          "instant": true,
+          "intervalFactor": 1,
+          "range": false,
+          "refId": "B",
+          "step": 240
+        }
+      ],
+      "title": "RAM Used",
       "type": "gauge"
     },
     {
@@ -1186,7 +1192,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1223,7 +1230,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -1269,7 +1276,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)"
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": 0
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -1310,7 +1318,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -1321,7 +1329,6 @@
           "exemplar": false,
           "expr": "node_filesystem_size_bytes{mountpoint=\"/etc/hostname\"}",
           "format": "time_series",
-          "hide": false,
           "instant": true,
           "intervalFactor": 1,
           "legendFormat": "__auto",
@@ -1360,7 +1367,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1397,7 +1405,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -1444,7 +1452,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1481,7 +1490,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -1528,7 +1537,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -1565,7 +1575,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -1616,7 +1626,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "#EAB839",
@@ -1654,7 +1665,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -1663,7 +1674,6 @@
           },
           "editorMode": "code",
           "expr": "(node_filesystem_size_bytes{mountpoint=\"/mnt/ssd\"} \r\n - node_filesystem_avail_bytes{mountpoint=\"/mnt/ssd\"})\r\n / 1024 / 1024 / 1024\r\n",
-          "hide": false,
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -1676,7 +1686,6 @@
           },
           "editorMode": "code",
           "expr": "node_filesystem_size_bytes{mountpoint=\"/mnt/ssd\"} / 1024 / 1024 / 1024\r\n",
-          "hide": false,
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -1723,7 +1732,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "red"
+                "color": "red",
+                "value": 0
               },
               {
                 "color": "yellow",
@@ -2062,7 +2072,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -2131,6 +2141,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -2146,7 +2157,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -2496,7 +2508,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -2557,7 +2569,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)"
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": 0
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -2598,7 +2611,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -2609,7 +2622,6 @@
           "exemplar": false,
           "expr": "node_filesystem_size_bytes{mountpoint=\"/mnt/ssd\"}",
           "format": "time_series",
-          "hide": false,
           "instant": true,
           "intervalFactor": 1,
           "legendFormat": "__auto",
@@ -2646,7 +2658,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               }
             ]
           },
@@ -2679,7 +2692,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -2727,6 +2740,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -2743,7 +2757,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -2756,7 +2771,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 11,
         "w": 15,
         "x": 3,
         "y": 26
@@ -2776,7 +2791,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -2819,160 +2834,6 @@
               "options": {
                 "match": "null",
                 "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 18,
-        "y": 26
-      },
-      "id": 342,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "text": {},
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.6.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cdlrrwac9bg8we"
-          },
-          "expr": "qbittorrent_global_torrents",
-          "instant": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Total Torrents",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "ceip2loy1bsw0e"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "transparent"
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 21,
-        "y": 26
-      },
-      "id": 339,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "first"
-          ],
-          "fields": "/^version$/",
-          "values": false
-        },
-        "showPercentChange": false,
-        "text": {},
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.6.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cdlrrwac9bg8we"
-          },
-          "expr": "qbittorrent_app_version",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "{{version}}",
-          "refId": "A"
-        }
-      ],
-      "title": "qBittorrent Version",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "ceip2loy1bsw0e"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
                   "color": "rgb(33, 33, 35)",
                   "text": "0"
                 }
@@ -2984,7 +2845,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgb(33, 33, 35)"
+                "color": "rgb(33, 33, 35)",
+                "value": 0
               },
               {
                 "color": "#37872D",
@@ -3000,10 +2862,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 6,
         "w": 3,
         "x": 18,
-        "y": 29
+        "y": 26
       },
       "id": 343,
       "maxDataPoints": 100,
@@ -3025,7 +2887,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -3066,7 +2928,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgb(33, 33, 35)"
+                "color": "rgb(33, 33, 35)",
+                "value": 0
               },
               {
                 "color": "#C4162A",
@@ -3082,10 +2945,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 6,
         "w": 3,
         "x": 21,
-        "y": 29
+        "y": 26
       },
       "id": 344,
       "maxDataPoints": 100,
@@ -3107,7 +2970,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -3134,7 +2997,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgb(255, 172, 10)"
+                "color": "rgb(255, 172, 10)",
+                "value": 0
               }
             ]
           },
@@ -3167,7 +3031,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -3207,7 +3071,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "transparent"
+                "color": "transparent",
+                "value": 0
               },
               {
                 "color": "#37872D",
@@ -3220,10 +3085,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 3,
         "x": 18,
-        "y": 33
+        "y": 32
       },
       "id": 340,
       "maxDataPoints": 100,
@@ -3245,7 +3110,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -3285,7 +3150,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgb(33, 33, 35)"
+                "color": "rgb(33, 33, 35)",
+                "value": 0
               },
               {
                 "color": "rgba(237, 158, 40, 0.89)",
@@ -3301,10 +3167,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 3,
         "x": 21,
-        "y": 33
+        "y": 32
       },
       "id": 341,
       "maxDataPoints": 100,
@@ -3326,7 +3192,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -3348,94 +3214,75 @@
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [
             {
-              "from": "",
-              "id": 2,
-              "operator": "",
-              "text": "N/A",
-              "to": "",
-              "type": 1,
-              "value": "null"
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
             }
           ],
-          "max": 1,
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-red"
-              },
-              {
-                "color": "dark-orange",
-                "value": 0.25
-              },
-              {
-                "color": "#EAB839",
-                "value": 0.5
-              },
-              {
-                "color": "semi-dark-green",
-                "value": 0.75
-              },
-              {
-                "color": "rgb(206, 206, 206)",
-                "value": 1
+                "color": "transparent",
+                "value": 0
               }
             ]
           },
-          "unit": "percentunit"
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 3,
-        "w": 18,
+        "w": 3,
         "x": 0,
         "y": 34
       },
-      "id": 345,
+      "id": 339,
+      "maxDataPoints": 100,
       "options": {
-        "displayMode": "lcd",
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "maxVizHeight": 300,
-        "minVizHeight": 16,
-        "minVizWidth": 8,
-        "namePlacement": "auto",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "first"
           ],
-          "fields": "",
+          "fields": "/^version$/",
           "values": false
         },
-        "showUnfilled": true,
-        "sizing": "auto",
+        "showPercentChange": false,
         "text": {},
-        "valueMode": "color"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "cdlrrwac9bg8we"
           },
-          "expr": "qbittorrent_torrent_progress < 1.0",
+          "expr": "qbittorrent_app_version",
+          "format": "table",
           "instant": true,
-          "legendFormat": "{{name}}",
+          "legendFormat": "{{version}}",
           "refId": "A"
         }
       ],
-      "title": "Incomplete Torrent Progress",
-      "type": "bargauge"
+      "title": "qBittorrent Version",
+      "type": "stat"
     },
     {
       "collapsed": false,
@@ -3463,6 +3310,9 @@
               "type": "auto"
             },
             "filterable": false,
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -3470,7 +3320,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -3532,18 +3383,10 @@
       "id": 334,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "11.6.0",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -3598,7 +3441,7 @@
   ],
   "preload": false,
   "refresh": "5s",
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "tags": [
     "linux"
   ],
@@ -3638,6 +3481,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "sort": 1,
         "type": "query"
       },
@@ -3661,6 +3505,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "sort": 1,
         "type": "query"
       },
@@ -3672,15 +3517,10 @@
         "hide": 2,
         "includeAll": false,
         "name": "diskdevices",
-        "options": [
-          {
-            "selected": true,
-            "text": "[a-z]+|nvme[0-9]+n[0-9]+|mmcblk[0-9]+",
-            "value": "[a-z]+|nvme[0-9]+n[0-9]+|mmcblk[0-9]+"
-          }
-        ],
+        "options": [],
         "query": "[a-z]+|nvme[0-9]+n[0-9]+|mmcblk[0-9]+",
-        "type": "custom"
+        "type": "custom",
+        "valuesFormat": "csv"
       }
     ]
   },
@@ -3692,5 +3532,6 @@
   "timezone": "browser",
   "title": "RaspberryPi Monitoring",
   "uid": "rYdddlPWk",
-  "version": 23
+  "version": 28,
+  "weekStart": ""
 }
