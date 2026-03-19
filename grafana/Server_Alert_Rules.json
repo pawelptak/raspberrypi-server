@@ -158,7 +158,6 @@ groups:
                 type: threshold
           noDataState: NoData
           execErrState: Error
-          for: 5m
           annotations:
             summary: "\U0001F480 Apache server is down"
           isPaused: false
