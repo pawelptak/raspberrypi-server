@@ -18,222 +18,104 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 17,
   "links": [],
   "panels": [
     {
       "datasource": {
-        "type": "loki",
-        "uid": "ce8z6zgdrobnkd"
+        "type": "prometheus",
+        "uid": "ceip2loy1bsw0e"
       },
       "fieldConfig": {
         "defaults": {
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
+          "color": {
+            "mode": "thresholds"
           },
-          "mappings": [],
+          "custom": {
+            "axisPlacement": "auto",
+            "axisWidth": 0,
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1
+          },
+          "fieldMinMax": false,
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 0,
+                  "text": "Down"
+                },
+                "1": {
+                  "index": 1,
+                  "text": "Up"
+                }
+              },
+              "type": "value"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
-                "value": 80
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 1
               }
             ]
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "date"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 314
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "path (firstNotNull)"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 386
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
-        "h": 17,
+        "h": 8,
         "w": 12,
         "x": 0,
         "y": 0
       },
-      "id": 2,
+      "id": 6,
       "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "enablePagination": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
+        "colWidth": 0.9,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
         },
-        "showHeader": true,
-        "sortBy": []
+        "rowHeight": 1,
+        "showValue": "auto",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "pluginVersion": "10.4.3",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
-          "datasource": {
-            "type": "loki",
-            "uid": "ce8z6zgdrobnkd"
-          },
           "editorMode": "code",
-          "expr": "{job=\"apache_access\"} | pattern `<IP> - - [<datetime>] \"<method> <path> <protocol>\" <status> <size> \"<referrer>\" \"<useragent>\"` | line_format \"{{.IP}} {{.datetime}} {{.method}} {{.path}} {{.status}} {{.size}} {{.referrer}} {{.useragent}}\"",
-          "queryType": "range",
+          "expr": "probe_success{job=\"apache_http\"}",
+          "legendFormat": "__auto",
+          "range": true,
           "refId": "A"
         }
       ],
-      "title": "Apache2 Access Logs Simple",
-      "transformations": [
-        {
-          "id": "extractFields",
-          "options": {
-            "format": "json",
-            "keepTime": true,
-            "replace": true,
-            "source": "labels"
-          }
-        },
-        {
-          "id": "sortBy",
-          "options": {
-            "fields": {},
-            "sort": [
-              {
-                "desc": true,
-                "field": "Time"
-              }
-            ]
-          }
-        },
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "IP": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "Time": {
-                "aggregations": [
-                  "firstNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "datetime": {
-                "aggregations": [
-                  "lastNotNull",
-                  "firstNotNull"
-                ]
-              },
-              "geoip_city_name": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "geoip_country_name": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "path": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "referrer": {
-                "aggregations": [
-                  "lastNotNull",
-                  "firstNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "size": {
-                "aggregations": []
-              },
-              "status": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "time": {
-                "aggregations": [
-                  "lastNotNull"
-                ]
-              },
-              "timestamp": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "useragent": {
-                "aggregations": [
-                  "firstNotNull"
-                ],
-                "operation": "aggregate"
-              }
-            }
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "includeByName": {},
-            "indexByName": {
-              "IP": 1,
-              "Time (firstNotNull)": 0,
-              "geoip_city_name (lastNotNull)": 2,
-              "geoip_country_name (lastNotNull)": 3,
-              "path (lastNotNull)": 4,
-              "referrer (firstNotNull)": 6,
-              "referrer (lastNotNull)": 5,
-              "status (lastNotNull)": 7,
-              "useragent (firstNotNull)": 8
-            },
-            "renameByName": {}
-          }
-        }
-      ],
-      "type": "table"
+      "title": "Uptime",
+      "type": "status-history"
     },
     {
       "datasource": {
         "type": "loki",
-        "uid": "ce8z6zgdrobnkd"
+        "uid": "aeip38a1fgnwga"
       },
       "fieldConfig": {
         "defaults": {
@@ -253,7 +135,7 @@
             "steps": [
               {
                 "color": "green",
-                "value": null
+                "value": 0
               },
               {
                 "color": "red",
@@ -316,16 +198,18 @@
           "lat": 46,
           "layer": "Layer 1",
           "lon": 14,
+          "noRepeat": false,
           "zoom": 15
         }
       },
-      "pluginVersion": "10.4.3",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
             "type": "loki",
-            "uid": "ce8z6zgdrobnkd"
+            "uid": "aeip38a1fgnwga"
           },
+          "direction": "backward",
           "editorMode": "code",
           "expr": "{job=\"apache_access\"} | pattern `<IP> - - [<datetime>] \"<method> <path> <protocol>\" <status> <size> \"<referrer>\" \"<useragent>\"` | line_format \"{{.IP}} {{.datetime}} {{.method}} {{.path}} {{.status}} {{.size}} {{.referrer}} {{.useragent}}\"",
           "queryType": "range",
@@ -463,33 +347,247 @@
     {
       "datasource": {
         "type": "loki",
-        "uid": "ce8z6zgdrobnkd"
+        "uid": "aeip38a1fgnwga"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "date"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 314
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "path (firstNotNull)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 386
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 2,
+      "options": {
+        "cellHeight": "sm",
+        "enablePagination": false,
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "12.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "aeip38a1fgnwga"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "{job=\"apache_access\"} | pattern `<IP> - - [<datetime>] \"<method> <path> <protocol>\" <status> <size> \"<referrer>\" \"<useragent>\"` | line_format \"{{.IP}} {{.datetime}} {{.method}} {{.path}} {{.status}} {{.size}} {{.referrer}} {{.useragent}}\"",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Apache2 Access Logs Simple",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "keepTime": true,
+            "replace": true,
+            "source": "labels"
+          }
+        },
+        {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "desc": true,
+                "field": "Time"
+              }
+            ]
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "IP": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Time": {
+                "aggregations": [
+                  "firstNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "datetime": {
+                "aggregations": [
+                  "lastNotNull",
+                  "firstNotNull"
+                ]
+              },
+              "geoip_city_name": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "geoip_country_name": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "path": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "referrer": {
+                "aggregations": [
+                  "lastNotNull",
+                  "firstNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "size": {
+                "aggregations": []
+              },
+              "status": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "time": {
+                "aggregations": [
+                  "lastNotNull"
+                ]
+              },
+              "timestamp": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "useragent": {
+                "aggregations": [
+                  "firstNotNull"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "IP": 1,
+              "Time (firstNotNull)": 0,
+              "geoip_city_name (lastNotNull)": 2,
+              "geoip_country_name (lastNotNull)": 3,
+              "path (lastNotNull)": 4,
+              "referrer (firstNotNull)": 6,
+              "referrer (lastNotNull)": 5,
+              "status (lastNotNull)": 7,
+              "useragent (firstNotNull)": 8
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "aeip38a1fgnwga"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 15,
         "w": 24,
         "x": 0,
-        "y": 17
+        "y": 25
       },
       "id": 3,
       "options": {
         "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
         "enableLogDetails": true,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
+        "showControls": false,
         "showLabels": false,
         "showTime": true,
         "sortOrder": "Descending",
+        "unwrappedColumns": false,
         "wrapLogMessage": false
       },
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
             "type": "loki",
-            "uid": "ce8z6zgdrobnkd"
+            "uid": "aeip38a1fgnwga"
           },
+          "direction": "backward",
           "editorMode": "code",
-          "expr": "{job=\"modsec\"} |~ \"ModSecurity: (Warning|Emergency|Alert|Critical)\"\r\n",
+          "expr": "{job=\"modsec\"} |~ \"ModSecurity: (Warning|Emergency|Alert|Critical)\"",
           "queryType": "range",
           "refId": "A"
         }
@@ -502,24 +600,31 @@
         "type": "loki",
         "uid": "ce8z6zgdrobnkd"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 16,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 40
       },
       "id": 4,
       "options": {
         "dedupStrategy": "none",
+        "enableInfiniteScrolling": false,
         "enableLogDetails": false,
         "prettifyLogMessage": false,
         "showCommonLabels": false,
+        "showControls": false,
         "showLabels": false,
         "showTime": false,
         "sortOrder": "Descending",
+        "unwrappedColumns": false,
         "wrapLogMessage": false
       },
-      "pluginVersion": "10.4.3",
+      "pluginVersion": "12.4.1",
       "targets": [
         {
           "datasource": {
@@ -548,20 +653,21 @@
       "type": "logs"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "schemaVersion": 39,
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Apache2 Logs",
   "uid": "bea3szaqqi5tsd",
-  "version": 15,
+  "version": 6,
   "weekStart": ""
 }
