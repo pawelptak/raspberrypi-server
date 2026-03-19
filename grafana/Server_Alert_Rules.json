@@ -163,3 +163,55 @@ groups:
           isPaused: false
           notification_settings:
             receiver: HomeAssistant
+        - uid: cfghgwndivx8ge
+          title: Disk Usage
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: ceip2loy1bsw0e
+              model:
+                editorMode: code
+                expr: "100 * (1 - (node_filesystem_avail_bytes{mountpoint=\"/\",fstype!~\"tmpfs|devtmpfs\"} \r\n           / node_filesystem_size_bytes{mountpoint=\"/\",fstype!~\"tmpfs|devtmpfs\"}))"
+                instant: true
+                intervalMs: 1000
+                legendFormat: __auto
+                maxDataPoints: 43200
+                range: false
+                refId: A
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 60
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          noDataState: NoData
+          execErrState: Error
+          annotations:
+            description: |-
+                Disk usage is above threshold.
+                Current value: {{ printf "%.0f" $values.A.Value }}%
+            summary: "\U0001F4BE High Disk Usage"
+          isPaused: false
+          notification_settings:
+            receiver: HomeAssistant
