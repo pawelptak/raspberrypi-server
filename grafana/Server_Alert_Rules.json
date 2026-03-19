@@ -1,0 +1,166 @@
+apiVersion: 1
+groups:
+    - orgId: 1
+      name: alert-group
+      folder: alerts
+      interval: 1m
+      rules:
+        - uid: dfgh1ujhcj85ce
+          title: CPU Usage
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: ceip2loy1bsw0e
+              model:
+                editorMode: code
+                expr: 100 - (avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+                instant: true
+                intervalMs: 1000
+                legendFormat: __auto
+                maxDataPoints: 43200
+                range: false
+                refId: A
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 80
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          noDataState: NoData
+          execErrState: Error
+          for: 5m
+          annotations:
+            description: |-
+                CPU usage is above threshold.
+                Current value: {{ printf "%.0f" $values.A.Value }}%
+            summary: "\U0001F525 High CPU usage"
+          isPaused: false
+          notification_settings:
+            receiver: HomeAssistant
+        - uid: dfgh7i80drkzka
+          title: RAM Usage
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: ceip2loy1bsw0e
+              model:
+                editorMode: code
+                expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100
+                instant: true
+                intervalMs: 1000
+                legendFormat: __auto
+                maxDataPoints: 43200
+                range: false
+                refId: A
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 90
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          noDataState: NoData
+          execErrState: Error
+          for: 5m
+          annotations:
+            description: |-
+                RAM usage is above threshold.
+                Current value: {{ printf "%.0f" $values.A.Value }} %
+            summary: ⚠️ High RAM usage
+          isPaused: false
+          notification_settings:
+            receiver: HomeAssistant
+        - uid: bfghfq6w84s8wd
+          title: Apache2 Down
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: ceip2loy1bsw0e
+              model:
+                datasource:
+                    type: prometheus
+                    uid: ceip2loy1bsw0e
+                editorMode: code
+                expr: probe_success{job="apache_http"} == 1
+                instant: true
+                intervalMs: 1000
+                legendFormat: __auto
+                maxDataPoints: 43200
+                range: false
+                refId: A
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 1
+                        type: lt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          noDataState: NoData
+          execErrState: Error
+          for: 5m
+          annotations:
+            summary: "\U0001F480 Apache server is down"
+          isPaused: false
+          notification_settings:
+            receiver: HomeAssistant
