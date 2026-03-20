@@ -598,7 +598,7 @@
     {
       "datasource": {
         "type": "loki",
-        "uid": "ce8z6zgdrobnkd"
+        "uid": "aeip38a1fgnwga"
       },
       "fieldConfig": {
         "defaults": {},
@@ -629,8 +629,9 @@
         {
           "datasource": {
             "type": "loki",
-            "uid": "ce8z6zgdrobnkd"
+            "uid": "aeip38a1fgnwga"
           },
+          "direction": "backward",
           "editorMode": "code",
           "expr": "{job=\"apache_access\"}",
           "queryType": "range",
@@ -661,13 +662,13 @@
     "list": []
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Apache2 Logs",
   "uid": "bea3szaqqi5tsd",
-  "version": 6,
+  "version": 7,
   "weekStart": ""
 }
