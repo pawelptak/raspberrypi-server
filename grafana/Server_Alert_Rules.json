@@ -48,8 +48,8 @@ groups:
                 refId: C
                 type: threshold
           noDataState: NoData
-          execErrState: Error
-          for: 5m
+          execErrState: OK
+          for: 1m
           annotations:
             description: |-
                 CPU usage is above threshold.
@@ -101,7 +101,7 @@ groups:
                 refId: C
                 type: threshold
           noDataState: NoData
-          execErrState: Error
+          execErrState: OK
           for: 5m
           annotations:
             description: |-
@@ -158,9 +158,10 @@ groups:
                 type: threshold
           noDataState: NoData
           execErrState: Error
+          for: 5m
           annotations:
             summary: "\U0001F480 Apache server is down"
-          isPaused: false
+          isPaused: true
           notification_settings:
             receiver: HomeAssistant
         - uid: cfghgwndivx8ge
@@ -206,7 +207,7 @@ groups:
                 refId: C
                 type: threshold
           noDataState: NoData
-          execErrState: Error
+          execErrState: OK
           annotations:
             description: |-
                 Disk usage is above threshold.
