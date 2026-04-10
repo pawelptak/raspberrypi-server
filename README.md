@@ -12,4 +12,6 @@ UUID=674b4b91-8aa9-475a-a891-301d6e929bc2  /mnt/ssd_plex  ext4  defaults,nofail,
 
 # a swapfile is not a swap partition, no line here
 #   use  dphys-swapfile swap[on|off]  for that
+/mnt/ssd/swapfile none swap sw 0 0 # I moved my swap onto an external SSD
 ```
+
