@@ -38,4 +38,4 @@ mode: single
     ```
     docker compose up -d
     ```
-    Cup is running on `http://<machine-ip-address>:8000`.
+    Dockhand is running on `http://<machine-ip-address>:3123`.
