@@ -37,8 +37,6 @@ services:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: monitoring_cadvisor
     restart: unless-stopped
-    command:
-      - '--port=8082'
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
@@ -46,7 +44,7 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
       - /dev/disk/:/dev/disk:ro
     ports:
-      - 8082:8082
+      - 8082:8080
     networks:
       - monitoring
 
