@@ -11,7 +11,7 @@ services:
     environment:
       - TZ=Europe/Warsaw
       - DIUN_WATCH_WORKERS=10
-      - DIUN_WATCH_SCHEDULE="0 */6 * * *"
+      - DIUN_WATCH_SCHEDULE=0 */6 * * *
       - DIUN_PROVIDERS_DOCKER=true
       - DIUN_PROVIDERS_DOCKER_WATCHBYDEFAULT=true
       - LOG_LEVEL=info
