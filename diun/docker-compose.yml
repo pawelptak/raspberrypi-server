@@ -17,12 +17,25 @@ services:
       - LOG_LEVEL=info
       - DIUN_WATCH_FIRSTCHECKNOTIF=true
       
-  cup:
-    image: ghcr.io/sergi0g/cup:latest
-    container_name: cup
+  dockhand:
+    image: fnsys/dockhand:latest
+    container_name: dockhand
     restart: unless-stopped
-    command: serve
     ports:
-      - "8000:8000"
+      - "3123:3000"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - dockhand_data:/app/data
+
+volumes:
+  dockhand_data:
+
+#  cup:
+#    image: ghcr.io/sergi0g/cup:latest
+#    container_name: cup
+#    restart: unless-stopped
+#    command: serve
+#    ports:
+#      - "8000:8000"
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock:ro
