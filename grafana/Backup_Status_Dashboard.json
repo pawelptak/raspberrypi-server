@@ -5,8 +5,8 @@
     "name": "adk2p6f",
     "namespace": "default",
     "uid": "29cea4ca-2c93-4e56-9f33-4e01895b53fe",
-    "resourceVersion": "1787142492202006",
-    "generation": 28,
+    "resourceVersion": "1787147132214014",
+    "generation": 31,
     "creationTimestamp": "2026-08-19T11:07:27Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "362665704382464"
@@ -15,7 +15,7 @@
       "grafana.app/createdBy": "user:deip2hn3uqt4wd",
       "grafana.app/saved-from-ui": "Grafana v13.1.3 (45a27d64b6)",
       "grafana.app/updatedBy": "user:deip2hn3uqt4wd",
-      "grafana.app/updatedTimestamp": "2026-08-19T12:28:12Z"
+      "grafana.app/updatedTimestamp": "2026-08-19T13:45:32Z"
     }
   },
   "spec": {
@@ -110,10 +110,12 @@
                       "options": {
                         "0": {
                           "text": "Failed",
+                          "color": "red",
                           "index": 0
                         },
                         "1": {
                           "text": "OK",
+                          "color": "green",
                           "index": 1
                         }
                       }
@@ -288,10 +290,6 @@
                       {
                         "value": 0,
                         "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
                       }
                     ]
                   },
@@ -373,10 +371,12 @@
                       "options": {
                         "0": {
                           "text": "Failed",
+                          "color": "red",
                           "index": 0
                         },
                         "1": {
                           "text": "OK",
+                          "color": "green",
                           "index": 1
                         }
                       }
@@ -555,10 +555,6 @@
                       {
                         "value": 0,
                         "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
                       }
                     ]
                   },
@@ -640,10 +636,12 @@
                       "options": {
                         "0": {
                           "text": "Failed",
+                          "color": "red",
                           "index": 0
                         },
                         "1": {
                           "text": "OK",
+                          "color": "green",
                           "index": 1
                         }
                       }
@@ -822,10 +820,6 @@
                       {
                         "value": 0,
                         "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
                       }
                     ]
                   },
@@ -907,10 +901,12 @@
                       "options": {
                         "0": {
                           "text": "Failed",
+                          "color": "red",
                           "index": 0
                         },
                         "1": {
                           "text": "OK",
+                          "color": "green",
                           "index": 1
                         }
                       }
@@ -1089,10 +1085,6 @@
                       {
                         "value": 0,
                         "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
                       }
                     ]
                   },
@@ -1174,10 +1166,12 @@
                       "options": {
                         "0": {
                           "text": "Failed",
+                          "color": "red",
                           "index": 0
                         },
                         "1": {
                           "text": "OK",
+                          "color": "green",
                           "index": 1
                         }
                       }
@@ -1356,10 +1350,6 @@
                       {
                         "value": 0,
                         "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
                       }
                     ]
                   },
