@@ -108,7 +108,7 @@ groups:
                 RAM usage is above threshold.
                 Current value: {{ printf "%.0f" $values.A.Value }} %
             summary: ⚠️ High RAM usage
-          isPaused: false
+          isPaused: true
           notification_settings:
             receiver: HomeAssistant
         - uid: bfghfq6w84s8wd
@@ -213,6 +213,112 @@ groups:
                 Disk usage is above threshold.
                 Current value: {{ printf "%.0f" $values.A.Value }}%
             summary: "\U0001F4BE High Disk Usage"
+          isPaused: true
+          notification_settings:
+            receiver: HomeAssistant
+        - uid: cfvnbk3v6o1kwa
+          title: 26H Since Last Immich Backup
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 600
+                to: 0
+              datasourceUid: ceip2loy1bsw0e
+              model:
+                editorMode: code
+                expr: time() - immich_backup_last_success_timestamp
+                instant: true
+                intervalMs: 1000
+                legendFormat: __auto
+                maxDataPoints: 43200
+                range: false
+                refId: A
+            - refId: C
+              queryType: expression
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 93600
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          noDataState: NoData
+          execErrState: Error
+          for: 5m
+          annotations:
+            description: No successful Immich backup to the SSD in the last 26 hours.
+            summary: "\U0001F534 Immich backup failed"
+          isPaused: false
+          notification_settings:
+            receiver: HomeAssistant
+        - uid: cfvndaktq3668f
+          title: 8 Days Since Last Remote Immich Backup
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 600
+                to: 0
+              datasourceUid: ceip2loy1bsw0e
+              model:
+                editorMode: code
+                expr: time() - immich_remote_backup_last_success_timestamp
+                instant: true
+                intervalMs: 1000
+                legendFormat: __auto
+                maxDataPoints: 43200
+                range: false
+                refId: A
+            - refId: C
+              queryType: expression
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 691200
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          noDataState: NoData
+          execErrState: Error
+          for: 5m
+          annotations:
+            description: No successful Immich backup to the remote PC in the last 8 days.
+            summary: "\U0001F534 Immich remote backup failed"
           isPaused: false
           notification_settings:
             receiver: HomeAssistant

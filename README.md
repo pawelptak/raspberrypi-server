@@ -29,7 +29,9 @@ To be able to use all the services remotely [PiVPN](pivpn) can be used.
 
 # Data backup
 
-## Nextcloud (or any other folder)
+## Nextcloud and Home Assistant (or any other folder)
+
+Backups are made with the `rsync` command. The [rsync-backup.sh](data-backup/rsync-backup.sh) script copies a chosen folder and logs each step to node-exporter, so the backup can be monitored in Grafana.
 
 1. Install rsync:
     ```
@@ -46,11 +48,11 @@ To be able to use all the services remotely [PiVPN](pivpn) can be used.
     ```
     sudo crontab -e
     ```
-And add the following line (this will run daily at 3:00 AM):
+    And add a line that runs the script (see [my-crontab.txt](data-backup/my-crontab.txt) for the exact lines I use for Nextcloud and Home Assistant). The script takes 3 arguments: a backup name, the source folder and the destination folder, for example:
 
-`0 3 * * * rsync -av --delete /home/pi/myfolder/ /mnt/backupdrive/mybackup/ >> /path/to/log/folder/backup_log.log 2>&1`
+    `0 3 * * * /path/to/rsync-backup.sh nextcloud /home/pi/nextcloud/ /mnt/backupdrive/nextcloud/ >> /path/to/log/folder/backup_log.log 2>&1`
 
-If something fails check the `backup_log.log` file. More info on the cron syntax [here](https://crontab.guru/).
+    If something fails check the `backup_log.log` file. More info on the cron syntax [here](https://crontab.guru/).
 
 ## Immich
 In the `immich` folder you got the .env file and there: `UPLOAD_LOCATION` with all the photos and `DB_DATA_LOCATION` that has the paths to the photos. Both have to be backuped. The database is automatically backuped in `UPLOAD_LOCATION\backups` ([source](https://immich.app/docs/administration/backup-and-restore/#automatic-database-backups)). To create a backup of Immich db and the media files on a separate drive, you need to perform the following steps:
@@ -62,7 +64,7 @@ In the `immich` folder you got the .env file and there: `UPLOAD_LOCATION` with a
 
 2. Run the commands from the "Borg set-up" section of the [docs](https://immich.app/docs/guides/template-backup-script/) (I omit the "##Remote set up" part. Add `sudo` for commands that fail).
 
-3. Edit and run the script from the "Borg backup template" section of the [docs](https://immich.app/docs/guides/template-backup-script/) (Again, I omit the "REMOTE_HOST", "REMOTE_BACKUP_PATH" lines and the "### Append to remote Borg repository" section). The script that I used can be found in `data-backup/immich-borg-setup.sh`. Running the script can take a while, since it is creating backup of all the data.
+3. Edit and run the script from the "Borg backup template" section of the [docs](https://immich.app/docs/guides/template-backup-script/) (Again, I omit the "REMOTE_HOST", "REMOTE_BACKUP_PATH" lines and the "### Append to remote Borg repository" section). The script that I used can be found in [immich/immich-borg-setup.sh](immich/immich-borg-setup.sh) (backup to a second SSD). There is also [immich/immich-borg-remote.sh](immich/immich-borg-remote.sh) that backs up to a remote PC. Running the script can take a while, since it is creating backup of all the data.
 
 4. Edit the crontab file:
     ```
@@ -83,3 +85,4 @@ In the `immich` folder you got the .env file and there: `UPLOAD_LOCATION` with a
 
 For restoring the immich database itself, keep in mind the [Manual Backup and Restore](https://immich.app/docs/administration/backup-and-restore/#manual-backup-and-restore) section of the docs (The "Restore" part). They mention a `dump.sql.gz` file but we have just a .sql file backed up, so idk? Good luck and may God be with you when doing the restore part.
 
+[More backup info](data-backup)
