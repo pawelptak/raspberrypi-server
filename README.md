@@ -29,7 +29,7 @@ To be able to use all the services remotely [PiVPN](pivpn) can be used.
 
 # Data backup
 
-## Nextcloud and Home Assistant (or any other folder)
+## Nextcloud (or any other folder)
 
 Backups are made with the `rsync` command. The [rsync-backup.sh](data-backup/rsync-backup.sh) script copies a chosen folder and logs each step to node-exporter, so the backup can be monitored in Grafana.
 
