@@ -63,17 +63,6 @@ services:
     networks:
       - monitoring
       
-  blackbox_exporter:
-    image: prom/blackbox-exporter:latest
-    container_name: blackbox_exporter
-    ports:
-      - "9115:9115"
-    restart: unless-stopped
-    volumes:
-      - ./blackbox.yml:/etc/blackbox_exporter/config.yml:ro
-    networks:
-     - monitoring
-
 networks:
   monitoring:
     driver: bridge
