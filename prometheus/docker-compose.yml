@@ -28,8 +28,10 @@ services:
       - 9100:9100
     volumes:
       - /:/hostfs:ro
+      - ./node-exporter-textfile:/textfile:ro
     command:
       - '--path.rootfs=/hostfs'
+      - '--collector.textfile.directory=/textfile'
     networks:
       - monitoring
 
@@ -61,17 +63,6 @@ services:
     networks:
       - monitoring
       
-  blackbox_exporter:
-    image: prom/blackbox-exporter:latest
-    container_name: blackbox_exporter
-    ports:
-      - "9115:9115"
-    restart: unless-stopped
-    volumes:
-      - ./blackbox.yml:/etc/blackbox_exporter/config.yml:ro
-    networks:
-     - monitoring
-
 networks:
   monitoring:
     driver: bridge
