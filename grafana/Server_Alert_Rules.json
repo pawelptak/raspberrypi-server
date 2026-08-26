@@ -319,8 +319,6 @@ groups:
           annotations:
             description: No successful Immich backup to the remote PC in the last 8 days.
             summary: "\U0001F534 Immich remote backup failed"
-          labels:
-            label: do-not-repeat
           isPaused: false
           notification_settings:
             receiver: HomeAssistant
