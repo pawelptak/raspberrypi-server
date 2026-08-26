@@ -260,7 +260,7 @@ groups:
                 maxDataPoints: 43200
                 refId: C
                 type: threshold
-          noDataState: KeepLast
+          noDataState: OK
           execErrState: Error
           for: 5m
           annotations:
@@ -313,12 +313,15 @@ groups:
                 maxDataPoints: 43200
                 refId: C
                 type: threshold
-          noDataState: KeepLast
+          noDataState: NoData
           execErrState: Error
           for: 5m
           annotations:
             description: No successful Immich backup to the remote PC in the last 8 days.
             summary: "\U0001F534 Immich remote backup failed"
+          labels:
+            label: do-not-repeat
           isPaused: false
           notification_settings:
             receiver: HomeAssistant
+            repeat_interval: 1y
