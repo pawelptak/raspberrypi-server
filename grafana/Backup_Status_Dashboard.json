@@ -5,17 +5,17 @@
     "name": "adk2p6f",
     "namespace": "default",
     "uid": "29cea4ca-2c93-4e56-9f33-4e01895b53fe",
-    "resourceVersion": "1787147132214014",
-    "generation": 31,
+    "resourceVersion": "1787669453316986",
+    "generation": 32,
     "creationTimestamp": "2026-08-19T11:07:27Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "362665704382464"
     },
     "annotations": {
       "grafana.app/createdBy": "user:deip2hn3uqt4wd",
-      "grafana.app/saved-from-ui": "Grafana v13.1.3 (45a27d64b6)",
+      "grafana.app/saved-from-ui": "Grafana v13.2.0 (f681b1359f)",
       "grafana.app/updatedBy": "user:deip2hn3uqt4wd",
-      "grafana.app/updatedTimestamp": "2026-08-19T13:45:32Z"
+      "grafana.app/updatedTimestamp": "2026-08-25T14:50:53Z"
     }
   },
   "spec": {
@@ -83,7 +83,7 @@
           "vizConfig": {
             "kind": "VizConfig",
             "group": "stat",
-            "version": "13.1.3",
+            "version": "13.2.0",
             "spec": {
               "options": {
                 "colorMode": "background",
@@ -180,7 +180,7 @@
           "vizConfig": {
             "kind": "VizConfig",
             "group": "stat",
-            "version": "13.1.3",
+            "version": "13.2.0",
             "spec": {
               "options": {
                 "colorMode": "value",
@@ -262,7 +262,7 @@
           "vizConfig": {
             "kind": "VizConfig",
             "group": "stat",
-            "version": "13.1.3",
+            "version": "13.2.0",
             "spec": {
               "options": {
                 "colorMode": "value",
@@ -344,7 +344,7 @@
           "vizConfig": {
             "kind": "VizConfig",
             "group": "stat",
-            "version": "13.1.3",
+            "version": "13.2.0",
             "spec": {
               "options": {
                 "colorMode": "background",
@@ -445,7 +445,7 @@
           "vizConfig": {
             "kind": "VizConfig",
             "group": "stat",
-            "version": "13.1.3",
+            "version": "13.2.0",
             "spec": {
               "options": {
                 "colorMode": "value",
@@ -527,7 +527,7 @@
           "vizConfig": {
             "kind": "VizConfig",
             "group": "stat",
-            "version": "13.1.3",
+            "version": "13.2.0",
             "spec": {
               "options": {
                 "colorMode": "value",
@@ -609,7 +609,7 @@
           "vizConfig": {
             "kind": "VizConfig",
             "group": "stat",
-            "version": "13.1.3",
+            "version": "13.2.0",
             "spec": {
               "options": {
                 "colorMode": "background",
@@ -710,7 +710,7 @@
           "vizConfig": {
             "kind": "VizConfig",
             "group": "stat",
-            "version": "13.1.3",
+            "version": "13.2.0",
             "spec": {
               "options": {
                 "colorMode": "value",
@@ -792,7 +792,7 @@
           "vizConfig": {
             "kind": "VizConfig",
             "group": "stat",
-            "version": "13.1.3",
+            "version": "13.2.0",
             "spec": {
               "options": {
                 "colorMode": "value",
@@ -874,7 +874,7 @@
           "vizConfig": {
             "kind": "VizConfig",
             "group": "stat",
-            "version": "13.1.3",
+            "version": "13.2.0",
             "spec": {
               "options": {
                 "colorMode": "background",
@@ -975,7 +975,7 @@
           "vizConfig": {
             "kind": "VizConfig",
             "group": "stat",
-            "version": "13.1.3",
+            "version": "13.2.0",
             "spec": {
               "options": {
                 "colorMode": "value",
@@ -1057,7 +1057,7 @@
           "vizConfig": {
             "kind": "VizConfig",
             "group": "stat",
-            "version": "13.1.3",
+            "version": "13.2.0",
             "spec": {
               "options": {
                 "colorMode": "value",
@@ -1139,7 +1139,7 @@
           "vizConfig": {
             "kind": "VizConfig",
             "group": "stat",
-            "version": "13.1.3",
+            "version": "13.2.0",
             "spec": {
               "options": {
                 "colorMode": "background",
@@ -1240,7 +1240,7 @@
           "vizConfig": {
             "kind": "VizConfig",
             "group": "stat",
-            "version": "13.1.3",
+            "version": "13.2.0",
             "spec": {
               "options": {
                 "colorMode": "value",
@@ -1322,7 +1322,7 @@
           "vizConfig": {
             "kind": "VizConfig",
             "group": "stat",
-            "version": "13.1.3",
+            "version": "13.2.0",
             "spec": {
               "options": {
                 "colorMode": "value",
@@ -1673,7 +1673,7 @@
     "tags": [],
     "timeSettings": {
       "timezone": "browser",
-      "from": "now-6h",
+      "from": "now-7d",
       "to": "now",
       "autoRefresh": "",
       "autoRefreshIntervals": [
