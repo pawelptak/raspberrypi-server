@@ -5,8 +5,8 @@
     "name": "adk2p6f",
     "namespace": "default",
     "uid": "29cea4ca-2c93-4e56-9f33-4e01895b53fe",
-    "resourceVersion": "1787669453316986",
-    "generation": 32,
+    "resourceVersion": "1788180962502019",
+    "generation": 34,
     "creationTimestamp": "2026-08-19T11:07:27Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "362665704382464"
@@ -15,7 +15,7 @@
       "grafana.app/createdBy": "user:deip2hn3uqt4wd",
       "grafana.app/saved-from-ui": "Grafana v13.2.0 (f681b1359f)",
       "grafana.app/updatedBy": "user:deip2hn3uqt4wd",
-      "grafana.app/updatedTimestamp": "2026-08-25T14:50:53Z"
+      "grafana.app/updatedTimestamp": "2026-08-31T12:56:02Z"
     }
   },
   "spec": {
@@ -66,9 +66,11 @@
                       },
                       "spec": {
                         "editorMode": "code",
+                        "exemplar": false,
                         "expr": "homeassistant_backup_last_status",
+                        "instant": true,
                         "legendFormat": "__auto",
-                        "range": true
+                        "range": false
                       }
                     },
                     "refId": "A",
@@ -428,9 +430,11 @@
                       },
                       "spec": {
                         "editorMode": "code",
+                        "exemplar": false,
                         "expr": "homeassistant_remote_backup_last_success_timestamp * 1000",
+                        "instant": true,
                         "legendFormat": "__auto",
-                        "range": true
+                        "range": false
                       }
                     },
                     "refId": "A",
@@ -510,9 +514,11 @@
                       },
                       "spec": {
                         "editorMode": "code",
+                        "exemplar": false,
                         "expr": "homeassistant_remote_backup_last_duration_seconds",
+                        "instant": true,
                         "legendFormat": "__auto",
-                        "range": true
+                        "range": false
                       }
                     },
                     "refId": "A",
@@ -592,9 +598,11 @@
                       },
                       "spec": {
                         "editorMode": "code",
+                        "exemplar": false,
                         "expr": "nextcloud_backup_last_status",
+                        "instant": true,
                         "legendFormat": "__auto",
-                        "range": true
+                        "range": false
                       }
                     },
                     "refId": "A",
@@ -693,9 +701,11 @@
                       },
                       "spec": {
                         "editorMode": "code",
+                        "exemplar": false,
                         "expr": "nextcloud_backup_last_success_timestamp * 1000",
+                        "instant": true,
                         "legendFormat": "__auto",
-                        "range": true
+                        "range": false
                       }
                     },
                     "refId": "A",
@@ -775,9 +785,11 @@
                       },
                       "spec": {
                         "editorMode": "code",
+                        "exemplar": false,
                         "expr": "nextcloud_backup_last_duration_seconds",
+                        "instant": true,
                         "legendFormat": "__auto",
-                        "range": true
+                        "range": false
                       }
                     },
                     "refId": "A",
@@ -857,9 +869,11 @@
                       },
                       "spec": {
                         "editorMode": "code",
+                        "exemplar": false,
                         "expr": "immich_remote_backup_last_status",
+                        "instant": true,
                         "legendFormat": "__auto",
-                        "range": true
+                        "range": false
                       }
                     },
                     "refId": "A",
@@ -958,9 +972,11 @@
                       },
                       "spec": {
                         "editorMode": "code",
+                        "exemplar": false,
                         "expr": "immich_remote_backup_last_success_timestamp * 1000",
+                        "instant": true,
                         "legendFormat": "__auto",
-                        "range": true
+                        "range": false
                       }
                     },
                     "refId": "A",
@@ -1040,9 +1056,11 @@
                       },
                       "spec": {
                         "editorMode": "code",
+                        "exemplar": false,
                         "expr": "immich_remote_backup_last_duration_seconds",
+                        "instant": true,
                         "legendFormat": "__auto",
-                        "range": true
+                        "range": false
                       }
                     },
                     "refId": "A",
@@ -1122,9 +1140,11 @@
                       },
                       "spec": {
                         "editorMode": "code",
+                        "exemplar": false,
                         "expr": "immich_backup_last_status",
+                        "instant": true,
                         "legendFormat": "__auto",
-                        "range": true
+                        "range": false
                       }
                     },
                     "refId": "A",
@@ -1223,9 +1243,11 @@
                       },
                       "spec": {
                         "editorMode": "code",
+                        "exemplar": false,
                         "expr": "immich_backup_last_success_timestamp * 1000",
+                        "instant": true,
                         "legendFormat": "__auto",
-                        "range": true
+                        "range": false
                       }
                     },
                     "refId": "A",
@@ -1305,9 +1327,11 @@
                       },
                       "spec": {
                         "editorMode": "code",
+                        "exemplar": false,
                         "expr": "immich_backup_last_duration_seconds",
+                        "instant": true,
                         "legendFormat": "__auto",
-                        "range": true
+                        "range": false
                       }
                     },
                     "refId": "A",
@@ -1675,7 +1699,7 @@
       "timezone": "browser",
       "from": "now-7d",
       "to": "now",
-      "autoRefresh": "",
+      "autoRefresh": "5s",
       "autoRefreshIntervals": [
         "5s",
         "10s",
