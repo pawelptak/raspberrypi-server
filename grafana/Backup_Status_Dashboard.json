@@ -167,7 +167,7 @@
                         "editorMode": "code",
                         "expr": "homeassistant_backup_last_success_timestamp * 1000",
                         "legendFormat": "__auto",
-                        "range": true
+                        "range": false
                       }
                     },
                     "refId": "A",
@@ -249,7 +249,7 @@
                         "editorMode": "code",
                         "expr": "homeassistant_backup_last_duration_seconds",
                         "legendFormat": "__auto",
-                        "range": true
+                        "range": false
                       }
                     },
                     "refId": "A",
@@ -331,7 +331,7 @@
                         "editorMode": "code",
                         "expr": "homeassistant_remote_backup_last_status",
                         "legendFormat": "__auto",
-                        "range": true
+                        "range": false
                       }
                     },
                     "refId": "A",
