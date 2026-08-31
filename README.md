@@ -1,15 +1,15 @@
 On Pi:
 ```
-mkdir -p ~/nextcloud-upload
+mkdir -p /mnt/ssd/upload
 ```
 
 On Windows:
 ```
-scp file.zip raspberrypi@raspberrypi:~/nextcloud-upload/
+scp file.zip raspberrypi@raspberrypi:/mnt/ssd/upload/
 ```
 
 On Pi:
 ```
-sudo mv ~/nextcloud-upload/file.zip /mnt/ssd/nextcloud/data/admin/files/
+sudo mv /mnt/ssd/upload/file.zip /mnt/ssd/nextcloud/data/admin/files/
 docker exec -u www-data nextcloud php occ files:scan --user=admin
 ```
