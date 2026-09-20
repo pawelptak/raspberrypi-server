@@ -8,6 +8,8 @@ METRICS_FILE="/home/raspberrypi/ApkiPawla/prometheus/node-exporter-textfile/immi
 # Home Assistant notify endpoint
 HA_URL="http://192.168.1.21:8123/api/services/notify/mobile_app_iwojtyla"
 HA_TOKEN=""
+HA_TAG="immich-local-backup"
+HA_ICON_URL="https://raw.githubusercontent.com/immich-app/immich/main/web/static/favicon.png"
 
 # Start timestamps
 START_TIME=$(date +%s)
@@ -43,7 +45,7 @@ fail() {
     curl -s -X POST \
          -H "Authorization: Bearer $HA_TOKEN" \
          -H "Content-Type: application/json" \
-         -d "{\"message\": \"Local Immich backup FAILED during ${REASON} after ${DURATION}s (at $NOW)\", \"title\": \"Immich Backup\"}" \
+             -d "{\"message\": \"Local Immich backup failed\\nStep: ${REASON}\\nDuration: ${DURATION}s\\nFinished: $NOW\", \"title\": \"Immich Backup\", \"data\": {\"tag\": \"$HA_TAG\", \"icon_url\": \"$HA_ICON_URL\"}}" \
          "$HA_URL"
 
     echo "$NOW Immich local backup FAILED during $REASON after ${DURATION}s"
@@ -61,7 +63,7 @@ echo "$START_DATE Starting Immich local backup"
 curl -s -X POST \
      -H "Authorization: Bearer $HA_TOKEN" \
      -H "Content-Type: application/json" \
-     -d "{\"message\": \"Local Immich backup started at $START_DATE\", \"title\": \"Immich Backup\"}" \
+    -d "{\"message\": \"Local Immich backup started\\nStarted: $START_DATE\", \"title\": \"Immich Backup\", \"data\": {\"tag\": \"$HA_TAG\", \"icon_url\": \"$HA_ICON_URL\"}}" \
      "$HA_URL"
 
 # Backup Immich database
@@ -104,7 +106,7 @@ write_metrics 1 "$END_TIME" "$DURATION"
 curl -s -X POST \
      -H "Authorization: Bearer $HA_TOKEN" \
      -H "Content-Type: application/json" \
-     -d "{\"message\": \"Local Immich backup completed successfully in ${DURATION}s (finished at $NOW)\", \"title\": \"Immich Backup\"}" \
+    -d "{\"message\": \"Local Immich backup completed\\nDuration: ${DURATION}s\\nFinished: $NOW\", \"title\": \"Immich Backup\", \"data\": {\"tag\": \"$HA_TAG\", \"icon_url\": \"$HA_ICON_URL\"}}" \
      "$HA_URL"
 
 echo "$NOW Immich local backup finished in ${DURATION}s"

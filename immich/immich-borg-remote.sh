@@ -8,6 +8,8 @@ METRICS_FILE="/home/raspberrypi/ApkiPawla/prometheus/node-exporter-textfile/immi
 # Home Assistant notify endpoint
 HA_URL="http://192.168.1.21:8123/api/services/notify/mobile_app_iwojtyla"
 HA_TOKEN=""
+HA_TAG="immich-remote-backup"
+HA_ICON_URL="https://raw.githubusercontent.com/immich-app/immich/main/web/static/favicon.png"
 
 export BORG_RELOCATED_REPO_ACCESS_IS_OK=yes
 
@@ -43,7 +45,7 @@ fail() {
     curl -s -X POST \
          -H "Authorization: Bearer $HA_TOKEN" \
          -H "Content-Type: application/json" \
-         -d "{\"message\": \"Immich remote backup FAILED during ${REASON} after ${DURATION}s (at $NOW)\", \"title\": \"Immich Backup\"}" \
+             -d "{\"message\": \"Immich remote backup failed\\nStep: ${REASON}\\nDuration: ${DURATION}s\\nFinished: $NOW\", \"title\": \"Immich Backup\", \"data\": {\"tag\": \"$HA_TAG\", \"icon_url\": \"$HA_ICON_URL\"}}" \
          "$HA_URL"
 
     echo "$NOW Immich remote backup FAILED during $REASON after ${DURATION}s"
@@ -57,7 +59,7 @@ echo "$START_DATE Starting Immich remote backup"
 curl -s -X POST \
      -H "Authorization: Bearer $HA_TOKEN" \
      -H "Content-Type: application/json" \
-     -d "{\"message\": \"Immich remote backup started at $START_DATE\", \"title\": \"Immich Backup\"}" \
+    -d "{\"message\": \"Immich remote backup started\\nStarted: $START_DATE\", \"title\": \"Immich Backup\", \"data\": {\"tag\": \"$HA_TAG\", \"icon_url\": \"$HA_ICON_URL\"}}" \
      "$HA_URL"
 
 # Create Borg archive
@@ -91,7 +93,7 @@ write_metrics 1 "$END_TIME" "$DURATION"
 curl -s -X POST \
      -H "Authorization: Bearer $HA_TOKEN" \
      -H "Content-Type: application/json" \
-     -d "{\"message\": \"Immich remote backup completed successfully in ${DURATION}s (finished at $NOW)\", \"title\": \"Immich Backup\"}" \
+    -d "{\"message\": \"Immich remote backup completed\\nDuration: ${DURATION}s\\nFinished: $NOW\", \"title\": \"Immich Backup\", \"data\": {\"tag\": \"$HA_TAG\", \"icon_url\": \"$HA_ICON_URL\"}}" \
      "$HA_URL"
 
 echo "$NOW Immich remote backup finished in ${DURATION}s"
