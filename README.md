@@ -13,7 +13,6 @@ Self hosting various services on Raspberry Pi 5
 - [Apache2](apache2)
 - [GoAccess](goaccess)
 - [ClipYT](clipyt)
-- [Glosy](glosy)
 - [Navidrome](navidrome)
 - [Home Assistant](homeassistant)
 - [Diun](diun)
